@@ -1,33 +1,43 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  webpack: (config) => {
-    // Ensure proper module resolution
-    config.resolve = {
-      ...config.resolve,
-      fallback: {
-        ...config.resolve.fallback,
-        fs: false,
-      },
-      alias: {
-        ...config.resolve.alias,
-        '@': require('path').resolve(__dirname, 'src'),
-      },
-    }
+name: Deploy to GitHub Pages
 
-    return config
-  },
-  // GitHub Pages deployment config
-  output: 'export',
-  basePath: '/MentholAI',
-  images: {
-    unoptimized: true,
-    domains: [], // Add this to prevent image domain warnings
-  },
-  // Disable type checking during build
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-}
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
-module.exports = nextConfig
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
