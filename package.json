@@ -1,0 +1,43 @@
+{
+  "name": "menthol-ui",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-tooltip": "^1.1.6",
+    "@react-spring/web": "^9.7.5",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "autoprefixer": "^10.0.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "framer-motion": "^10.18.0",
+    "lucide-react": "^0.294.0",
+    "next": "14.0.4",
+    "postcss": "^8.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-intersection-observer": "^9.15.0",
+    "react-syntax-highlighter": "^15.5.0",
+    "react-use": "^17.4.2",
+    "tailwind-merge": "^2.2.0",
+    "tailwindcss": "^3.3.0",
+    "use-sound": "^4.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "babel-loader": "^9.1.3",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "14.0.4",
+    "typescript": "^5.0.0"
+  }
+}
