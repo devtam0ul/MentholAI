@@ -16,11 +16,16 @@ export function CallToAction() {
         </p>
         <div className="flex gap-6 justify-center">
           <button className="bg-white text-black px-8 py-4 rounded-lg hover:bg-gray-100 transition-all font-medium">
-            Get Started
+            BUY $MENTHOL
           </button>
-          <button className="border border-white text-white px-8 py-4 rounded-lg hover:bg-white/10 transition-all font-medium">
-            View Docs
-          </button>
+          <a 
+            href="https://github.com/mentholai/menthol"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-white text-white px-8 py-4 rounded-lg hover:bg-white/10 transition-all font-medium"
+          >
+            Try Menthol
+          </a>
         </div>
       </div>
     </section>

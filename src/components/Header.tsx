@@ -81,8 +81,10 @@ export function Header() {
               />
               <div className="absolute -bottom-1 left-0 h-[2px] w-full bg-[#00FFD1]/0 group-hover:bg-[#00FFD1]/20 blur-sm transition-all duration-300" />
             </a>
-            <Link 
-              href="/docs"
+            <a 
+              href="https://github.com/mentholai/menthol"
+              target="_blank"
+              rel="noopener noreferrer"
               className="relative text-gray-300 hover:text-white transition-colors group py-2"
             >
               <span className="relative z-10">Docs</span>
@@ -91,7 +93,7 @@ export function Header() {
                 whileHover={{ width: "100%" }}
               />
               <div className="absolute -bottom-1 left-0 h-[2px] w-full bg-[#00FFD1]/0 group-hover:bg-[#00FFD1]/20 blur-sm transition-all duration-300" />
-            </Link>
+            </a>
             <Link 
               href="https://github.com/mentholai"
               className="relative text-gray-300 hover:text-white transition-colors group py-2"

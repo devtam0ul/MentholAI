@@ -164,14 +164,14 @@ export function HeroSection() {
             showArrow 
             className="group"
           >
-            Get Started
+            BUY $MENTHOL
           </AccessibleButton>
           
           <AccessibleButton 
             variant="secondary" 
             size="lg"
           >
-            Learn More
+            Try Menthol
           </AccessibleButton>
         </div>
       </motion.div>

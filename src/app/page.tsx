@@ -13,6 +13,7 @@ import { motion } from 'framer-motion'
 import { AnimatedRustCode } from '@/components/AnimatedRustCode'
 import Image from 'next/image'
 import { NFTCard } from '@/components/NFTCard'
+import { AudioPlayer } from '@/components/AudioPlayer'
 
 const FEATURES = [
   {
@@ -88,9 +89,19 @@ const TokenomicsChart = dynamic(() => import('@/components/TokenomicsChart'), {
   loading: () => <div className="w-full aspect-square bg-black/30 rounded-full animate-pulse" />
 })
 
+function scrollToSection(sectionId: string) {
+  const element = document.getElementById(sectionId)
+  if (element) {
+    element.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
+}
+
 export default function Home() {
   return (
-    <main>
+    <main className="relative">
       <ClientLayout>
         <Header />
         <HeroSection />
@@ -323,12 +334,58 @@ export default function Home() {
 
               {/* Right side - Chart */}
               <motion.div 
-                className="flex justify-center pl-20"
+                className="flex flex-col items-center justify-center pl-20"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <TokenomicsChart />
+                
+                <Link
+                  href="/buy"
+                  className="mt-20 relative group"
+                >
+                  {/* Main button with dark theme */}
+                  <div className="relative bg-black/80 backdrop-blur-sm px-12 py-5 rounded-full font-semibold text-[#00FFD1] text-lg hover:bg-black transition-all duration-300 flex items-center justify-center gap-3 z-20 border border-[#00FFD1]/50">
+                    BUY $MENTHOL 
+                    <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
+                  </div>
+
+                  {/* Multiple glowing rings */}
+                  <div className="absolute inset-0 rounded-full border border-[#00FFD1]/50" />
+                  <div className="absolute -inset-1 rounded-full border border-[#00FFD1]/30 blur-[2px]" />
+                  <div className="absolute -inset-2 rounded-full border border-[#00FFD1]/10 blur-[4px]" />
+
+                  {/* Animated glow effects */}
+                  <motion.div
+                    className="absolute -inset-3 bg-[#00FFD1]/10 rounded-full blur-2xl"
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      opacity: [0.1, 0.3, 0.1]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+
+                  {/* Hover expansion effect */}
+                  <motion.div
+                    className="absolute -inset-8 bg-[#00FFD1]/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    animate={{
+                      scale: [1, 1.2, 1],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+
+                  {/* Inner glow on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#00FFD1]/0 via-[#00FFD1]/10 to-[#00FFD1]/0 rounded-full opacity-0 group-hover:opacity-100 blur-xl transition-all duration-300" />
+                </Link>
               </motion.div>
             </div>
           </div>
@@ -432,10 +489,32 @@ export default function Home() {
           <div className="max-w-6xl mx-auto">
             <div className="flex justify-center mb-8">
               <div className="flex gap-8 items-center">
-                <Link href="/features" className="text-gray-400 hover:text-white transition-colors">Features</Link>
-                <Link href="/tokenomics" className="text-gray-400 hover:text-white transition-colors">Tokenomics</Link>
-                <Link href="/docs" className="text-gray-400 hover:text-white transition-colors">Docs</Link>
-                <Link href="https://github.com/mentholai" className="text-gray-400 hover:text-white transition-colors">GitHub</Link>
+                <button 
+                  onClick={() => scrollToSection('features')}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Features
+                </button>
+                <button 
+                  onClick={() => scrollToSection('tokenomics')}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Tokenomics
+                </button>
+                <a 
+                  href="https://github.com/mentholai/menthol"
+                  target="_blank"
+                  rel="noopener noreferrer" 
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Docs
+                </a>
+                <Link 
+                  href="https://github.com/mentholai" 
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  GitHub
+                </Link>
               </div>
             </div>
             <div className="text-center text-gray-500 text-sm">
@@ -444,6 +523,8 @@ export default function Home() {
           </div>
         </footer>
       </ClientLayout>
+
+      <AudioPlayer />
     </main>
   )
 } 
