@@ -56,27 +56,33 @@ const StatItem = ({ icon, value, label, description }: StatItemProps) => {
 
 export function EnhancedStatsBar() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.8 }}
-      className="flex gap-12 bg-black/20 backdrop-blur-sm px-16 py-2 mt-24 w-[600px] border-t border-[#00FFD1]/10 hover:bg-black/30 transition-all duration-300"
-    >
-      <div className="flex items-center justify-between w-full">
-        <StatItem
-          icon={<Sparkles />}
-          value="7000"
-          label="AI Models"
-          description="Trained on diverse datasets for optimal performance"
-        />
-        <div className="w-px h-8 bg-gradient-to-b from-transparent via-[#00FFD1]/10 to-transparent" />
-        <StatItem
-          icon={<Globe2 />}
-          value="10000"
-          label="Global Artists"
-          description="Creative professionals using Menthol worldwide"
-        />
+    <div className="w-full flex justify-center pt-20">
+      <div className="flex items-center justify-center gap-32 bg-black/20 backdrop-blur-sm px-16 py-3 rounded-xl border border-[#00FFD1]/10 min-w-[500px]">
+        {/* AI Models Stats */}
+        <div className="flex items-center gap-3">
+          <div className="text-[#00FFD1]">
+            <Sparkles className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="text-white font-bold text-lg">100M+</h3>
+            <p className="text-[#00FFD1] text-xs">AI Models</p>
+          </div>
+        </div>
+
+        {/* Divider Line */}
+        <div className="h-8 w-px bg-gradient-to-b from-transparent via-[#00FFD1]/20 to-transparent" />
+
+        {/* Global Artists Stats */}
+        <div className="flex items-center gap-3">
+          <div className="text-[#00FFD1]">
+            <Globe2 className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="text-white font-bold text-lg">11,000+</h3>
+            <p className="text-[#00FFD1] text-xs">Global Artists</p>
+          </div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   )
 } 
