@@ -101,6 +101,17 @@ function scrollToSection(sectionId: string) {
   }
 }
 
+const STATS = [
+  {
+    value: "8,888+",
+    label: "Global Artists",
+  },
+  {
+    value: "100M+",
+    label: "AI Models",
+  }
+]
+
 export default function Home() {
   return (
     <main className="relative">
@@ -185,7 +196,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
               {FEATURES.map((feature, index) => (
-                <motion.div
+                <motion.div 
                   key={feature.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -224,16 +235,108 @@ export default function Home() {
                       {feature.title}
                     </motion.h3>
 
-                    {/* Description with fade-in effect */}
-                    <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors flex-grow">
-                      {feature.description}
-                    </p>
+                    {/* Description with code-writing effect */}
+                    <motion.p 
+                      className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors flex-grow font-mono text-xs"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.5, delay: index * 0.3 + 0.5 }}
+                    >
+                      <motion.span
+                        initial={{ width: "0%" }}
+                        animate={{ width: "100%" }}
+                        transition={{
+                          duration: 1.5,
+                          delay: index * 0.3 + 0.5,
+                          ease: "easeInOut"
+                        }}
+                        className="inline-block whitespace-pre-wrap"
+                      >
+                        {`> ${feature.description}`}
+                      </motion.span>
+                      <motion.span
+                        animate={{ opacity: [0, 1, 0] }}
+                        transition={{
+                          duration: 0.8,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                        className="inline-block w-1.5 h-3 bg-[#00FFD1] ml-1 align-middle"
+                      />
+                    </motion.p>
 
                     {/* Decorative elements */}
-                    <div className="absolute top-4 right-4 w-20 h-20 border border-[#00FFD1]/5 rounded-full 
-                                  group-hover:border-[#00FFD1]/20 transition-all duration-500" />
-                    <div className="absolute bottom-4 left-4 w-16 h-16 border border-[#00FFD1]/5 rounded-full 
-                                  group-hover:border-[#00FFD1]/20 transition-all duration-500" />
+                    <div className="absolute top-4 right-4 w-20 h-20 border border-[#00FFD1]/5 rounded-full overflow-hidden group-hover:border-[#00FFD1]/20 transition-all duration-500">
+                      {/* Animated circular gradient */}
+                      <motion.div
+                        className="absolute inset-0"
+                        animate={{
+                          background: [
+                            "conic-gradient(from 0deg, rgba(0,255,209,0.05) 0%, transparent 60%)",
+                            "conic-gradient(from 360deg, rgba(0,255,209,0.05) 0%, transparent 60%)"
+                          ],
+                          rotate: [0, 360]
+                        }}
+                        transition={{
+                          duration: 8,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                      />
+                      
+                      {/* Pulsing dot */}
+                      <motion.div
+                        className="absolute top-1/2 left-1/2 w-1 h-1 bg-[#00FFD1]/50 rounded-full"
+                        animate={{
+                          scale: [1, 1.5, 1],
+                          opacity: [0.3, 0.6, 0.3],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                        style={{
+                          transform: 'translate(-50%, -50%)'
+                        }}
+                      />
+                    </div>
+
+                    <div className="absolute bottom-4 left-4 w-16 h-16 border border-[#00FFD1]/5 rounded-full overflow-hidden group-hover:border-[#00FFD1]/20 transition-all duration-500">
+                      {/* Scanning line effect */}
+                      <motion.div
+                        className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-[#00FFD1]/20 to-transparent"
+                        animate={{
+                          top: ["-10%", "110%"]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                      />
+                      
+                      {/* Rotating segments */}
+                      <motion.div
+                        className="absolute inset-0"
+                        animate={{ rotate: 360 }}
+                        transition={{
+                          duration: 10,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                      >
+                        {[...Array(4)].map((_, i) => (
+                          <div
+                            key={i}
+                            className="absolute top-0 left-1/2 h-1/2 w-[1px] bg-[#00FFD1]/10 origin-bottom"
+                            style={{
+                              transform: `rotate(${i * 90}deg)`
+                            }}
+                          />
+                        ))}
+                      </motion.div>
+                    </div>
                   </div>
 
                   {/* Particle effects on hover */}
@@ -298,8 +401,8 @@ export default function Home() {
                 >
                   $
                 </motion.span>
-                <span className="text-white font-extrabold">MENTHOL</span>
-                <span className="text-white ml-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">Tokenomics</span>
+                <span className="font-extrabold bg-gradient-to-r from-[#00FFD1] via-white to-white bg-clip-text text-transparent">MENTHOL</span>
+                <span className="ml-6 bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-transparent">Tokenomics</span>
               </h2>
               <motion.p 
                 className="text-lg text-gray-400 mt-4"
@@ -311,123 +414,136 @@ export default function Home() {
               </motion.p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
               {/* Left side - Information */}
               <motion.div 
-                className="space-y-4"
+                className="space-y-3"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
                 {/* Public Sale Card */}
                 <motion.div 
-                  className="bg-black/40 rounded-xl p-4 border border-[#00FFD1]/10 backdrop-blur-sm hover:bg-black/50 transition-all"
-                  whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.2)' }}
+                  className="bg-black/40 rounded-lg p-3 border border-[#00FFD1]/10 backdrop-blur-sm hover:bg-black/50 transition-all"
+                  whileHover={{ scale: 1.01, borderColor: 'rgba(0, 255, 209, 0.2)' }}
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <Icons.Wallet className="w-5 h-5 text-[#00FFD1]" />
+                    <Icons.Wallet className="w-6 h-6 text-white" />
                     <h3 className="text-lg font-medium text-white">Public Sale</h3>
                   </div>
                   <div className="flex items-end gap-3">
                     <span className="text-4xl font-bold text-[#00FFD1]">90%</span>
-                    <span className="text-gray-400 text-sm pb-1">Freely tradable on the open market</span>
+                    <span className="text-gray-400 text-sm pb-1 font-mono">
+                      market.tradable = true;
+                      restrictions = "none";
+                    </span>
                   </div>
                 </motion.div>
 
                 {/* Team Allocation Card */}
                 <motion.div 
-                  className="bg-black/40 rounded-xl p-4 border border-[#00FFD1]/10 backdrop-blur-sm hover:bg-black/50 transition-all"
-                  whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.2)' }}
+                  className="bg-black/40 rounded-lg p-3 border border-[#00FFD1]/10 backdrop-blur-sm hover:bg-black/50 transition-all"
+                  whileHover={{ scale: 1.01, borderColor: 'rgba(0, 255, 209, 0.2)' }}
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <Icons.Stack className="w-5 h-5 text-[#00FFD1]" />
+                    <Icons.Stack className="w-6 h-6 text-white" />
                     <h3 className="text-lg font-medium text-white">Team Allocation</h3>
                   </div>
                   <div className="flex items-end gap-3">
                     <span className="text-4xl font-bold text-[#00FFD1]">10%</span>
-                    <span className="text-gray-400 text-sm pb-1">8% locked for 6 months, vested carefully</span>
+                    <span className="text-gray-400 text-sm pb-1 font-mono">
+                      lock(tokens: 8%, duration: "6_months");
+                    </span>
                   </div>
                 </motion.div>
 
                 {/* Fair Launch Details Card */}
                 <motion.div 
-                  className="bg-black/40 rounded-xl p-4 border border-[#00FFD1]/10 backdrop-blur-sm hover:bg-black/50 transition-all"
-                  whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.2)' }}
+                  className="bg-black/40 rounded-lg p-3 border border-[#00FFD1]/10 backdrop-blur-sm hover:bg-black/50 transition-all"
+                  whileHover={{ scale: 1.01, borderColor: 'rgba(0, 255, 209, 0.2)' }}
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[#00FFD1] text-xl">📋</span>
+                    <Icons.Clipboard className="w-6 h-6 text-white" />
                     <h3 className="text-lg font-medium text-white">Fair Launch Details</h3>
                   </div>
-                  <ul className="space-y-2">
-                    {TOKENOMICS.fairLaunch.map((item) => (
+                  <ul className="space-y-2 font-mono">
+                    {[
+                      'platform.launch("pump.fun");',
+                      'fairness.set(100);',
+                      'privateSale.enabled = false;',
+                      'distribution.mode = "transparent";'
+                    ].map((item) => (
                       <motion.li 
                         key={item} 
                         className="flex items-center gap-2 text-gray-400 text-sm"
                         whileHover={{ x: 5, color: '#fff' }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
-                        <span className="text-[#00FFD1] text-base">•</span>
+                        <span className="text-[#00FFD1] text-base">></span>
                         <span>{item}</span>
                       </motion.li>
                     ))}
                   </ul>
                 </motion.div>
+
+                {/* Move Buy button here with adjusted positioning */}
+                <Link
+                  href="/buy"
+                  className="mt-24 relative group inline-block w-full"
+                >
+                  {/* Center container */}
+                  <div className="flex justify-center">
+                    {/* Main button with dark theme - removed bg-black/80 */}
+                    <div className="relative backdrop-blur-sm px-8 py-3 rounded-full font-semibold text-[#00FFD1] text-base hover:bg-black/20 transition-all duration-300 flex items-center justify-center gap-2 z-20 border border-[#00FFD1]/50">
+                      BUY $MENTHOL 
+                      <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </div>
+
+                    {/* Glow effects */}
+                    <div className="absolute inset-0 rounded-full border border-[#00FFD1]/50" />
+                    <div className="absolute -inset-0.5 rounded-full border border-[#00FFD1]/30 blur-[1px]" />
+                    <div className="absolute -inset-1 rounded-full border border-[#00FFD1]/10 blur-[2px]" />
+
+                    <motion.div
+                      className="absolute -inset-2 bg-[#00FFD1]/10 rounded-full blur-xl"
+                      animate={{
+                        scale: [1, 1.1, 1],
+                        opacity: [0.1, 0.3, 0.1]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+
+                    <motion.div
+                      className="absolute -inset-4 bg-[#00FFD1]/5 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      animate={{
+                        scale: [1, 1.2, 1],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#00FFD1]/0 via-[#00FFD1]/10 to-[#00FFD1]/0 rounded-full opacity-0 group-hover:opacity-100 blur-xl transition-all duration-300" />
+                  </div>
+                </Link>
               </motion.div>
 
               {/* Right side - Chart */}
               <motion.div 
-                className="flex flex-col items-center justify-center pl-20"
+                className="flex flex-col items-center justify-end"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <TokenomicsChart />
-                
-                <Link
-                  href="/buy"
-                  className="mt-20 relative group"
-                >
-                  {/* Main button with dark theme */}
-                  <div className="relative bg-black/80 backdrop-blur-sm px-12 py-5 rounded-full font-semibold text-[#00FFD1] text-lg hover:bg-black transition-all duration-300 flex items-center justify-center gap-3 z-20 border border-[#00FFD1]/50">
-                    BUY $MENTHOL 
-                    <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
-                  </div>
-
-                  {/* Multiple glowing rings */}
-                  <div className="absolute inset-0 rounded-full border border-[#00FFD1]/50" />
-                  <div className="absolute -inset-1 rounded-full border border-[#00FFD1]/30 blur-[2px]" />
-                  <div className="absolute -inset-2 rounded-full border border-[#00FFD1]/10 blur-[4px]" />
-
-                  {/* Animated glow effects */}
-                  <motion.div
-                    className="absolute -inset-3 bg-[#00FFD1]/10 rounded-full blur-2xl"
-                    animate={{
-                      scale: [1, 1.1, 1],
-                      opacity: [0.1, 0.3, 0.1]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-
-                  {/* Hover expansion effect */}
-                  <motion.div
-                    className="absolute -inset-8 bg-[#00FFD1]/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    animate={{
-                      scale: [1, 1.2, 1],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-
-                  {/* Inner glow on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#00FFD1]/0 via-[#00FFD1]/10 to-[#00FFD1]/0 rounded-full opacity-0 group-hover:opacity-100 blur-xl transition-all duration-300" />
-                </Link>
+                <div className="max-w-[400px] aspect-square w-full mt-10">
+                  <TokenomicsChart />
+                </div>
               </motion.div>
             </div>
           </div>
@@ -476,7 +592,7 @@ export default function Home() {
                   >
                     <h3 className="text-[#00FFD1] font-semibold mb-1 text-sm">Rust-Powered Core</h3>
                     <p className="text-gray-400 text-xs">
-                      Built with blazing-fast, memory-safe Rust for unparalleled performance and reliability
+                      Built with blazing-fast, memory-safe Rust for maximum performance and security
                     </p>
                   </motion.div>
                   
@@ -486,7 +602,7 @@ export default function Home() {
                   >
                     <h3 className="text-[#00FFD1] font-semibold mb-1 text-sm">Quantum Computing</h3>
                     <p className="text-gray-400 text-xs">
-                      Leveraging quantum algorithms for unprecedented creative possibilities and processing power
+                      Leveraging quantum algorithms to unlock limitless creative possibilities
                     </p>
                   </motion.div>
                   
@@ -496,7 +612,7 @@ export default function Home() {
                   >
                     <h3 className="text-[#00FFD1] font-semibold mb-1 text-sm">AI Models</h3>
                     <p className="text-gray-400 text-xs">
-                      Advanced neural networks trained on vast datasets for intelligent art generation
+                      Neural networks trained on vast datasets for next-gen art creation
                     </p>
                   </motion.div>
                 </div>
@@ -528,14 +644,21 @@ export default function Home() {
                   <motion.div
                     animate={{ 
                       y: [0, -10, 0],
-                      rotate: [-5, 5, -5],
+                      rotate: [-5, 365, -5],
                       scale: [1, 1.1, 1]
                     }}
                     transition={{
                       duration: 5,
                       ease: "easeInOut",
                       repeat: Infinity,
-                      repeatType: "reverse"
+                      repeatType: "reverse",
+                      rotate: {
+                        duration: 3,
+                        ease: "easeInOut",
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        times: [0, 0.5, 1]
+                      }
                     }}
                   >
                     <div className="absolute inset-0 bg-[#00FFD1]/20 blur-2xl rounded-full" />
@@ -745,14 +868,14 @@ const result = await menthol.compose({
                         </div>
                       </div>
 
-                      {/* Updated wallet info with pseudoname and enhanced animations */}
+                      {/* Updated wallet info with white text */}
                       <div className="p-3 bg-black border-t border-[#00FFD1]/10">
                         <motion.div 
                           className="flex items-center justify-between"
                           initial={{ opacity: 0.8 }}
                           whileHover={{ opacity: 1 }}
                         >
-                          {/* Left side - Wallet address with pulse */}
+                          {/* Left side - Wallet address with white text */}
                           <motion.div 
                             className="flex items-center gap-2"
                             whileHover={{ x: 3 }}
@@ -760,7 +883,7 @@ const result = await menthol.compose({
                           >
                             <div className="w-2 h-2 bg-[#00FFD1] rounded-full animate-pulse" />
                             <motion.p 
-                              className="font-mono text-xs text-[#00FFD1]/80 hover:text-[#00FFD1] transition-colors"
+                              className="font-mono text-xs text-white hover:text-[#00FFD1] transition-colors"
                               whileHover={{ letterSpacing: '0.05em' }}
                               transition={{ duration: 0.3 }}
                             >
@@ -768,7 +891,7 @@ const result = await menthol.compose({
                             </motion.p>
                           </motion.div>
 
-                          {/* Right side - Pseudoname with glow */}
+                          {/* Right side - Pseudoname with white text */}
                           <motion.div
                             className="flex items-center gap-2"
                             initial={{ opacity: 0.7 }}
@@ -781,7 +904,7 @@ const result = await menthol.compose({
                           >
                             <span className="text-xs text-[#00FFD1]/60">|</span>
                             <motion.span 
-                              className="text-xs font-medium text-[#00FFD1] drop-shadow-[0_0_3px_rgba(0,255,209,0.5)]"
+                              className="text-xs font-medium text-white drop-shadow-[0_0_3px_rgba(0,255,209,0.5)]"
                               whileHover={{
                                 textShadow: [
                                   "0 0 4px rgba(0,255,209,0.5)",
