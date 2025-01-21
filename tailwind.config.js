@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        'spin-slow': 'spin 6s linear infinite',
+        'spin-slow': 'spin 10s linear infinite',
         'orbit-1': 'orbit1 15s linear infinite',
         'orbit-2': 'orbit2 20s linear infinite',
         'float': 'float 6s ease-in-out infinite',
@@ -46,6 +46,10 @@ module.exports = {
           '50%': { transform: 'translate(120px, -80px) scale(2)', opacity: 1 },
           '100%': { transform: 'translate(240px, -160px) scale(1)', opacity: 0 },
         },
+      },
+      backgroundImage: {
+        'gradient-conic': 'conic-gradient(var(--tw-gradient-stops))',
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
     },
   },

@@ -15,6 +15,7 @@ import Image from 'next/image'
 import { NFTCard } from '@/components/NFTCard'
 import { AudioPlayer } from '@/components/AudioPlayer'
 import { Sparkles, Globe } from 'lucide-react'
+import { NFTShowcase } from '@/components/NFTShowcase'
 
 const FEATURES = [
   {
@@ -456,28 +457,215 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
               {[
                 {
                   image: "/nft1.png",
-                  prompt: "await menthol.generate({prompt: \"cyberpunk samurai warriors, metallic armor, neon mint energy, ultra detailed\", style: \"cinematic\", enhancers: [\"quantum\", \"highDetail\"], seed: 1337})",
+                  prompt: `await menthol.generate({
+  prompt: "cyberpunk samurai warriors",
+  style: "cinematic",
+  parameters: {
+    armor: "metallic chrome",
+    energy: "neon mint",
+    detail_level: "ultra",
+    lighting: "volumetric",
+    atmosphere: "cyber dystopian"
+  },
+  enhancers: ["quantum", "highDetail", "stableDiffusion"],
+  seed: 1337,
+  quantum_params: {
+    entanglement_depth: 24,
+    superposition_layers: 8
+  }
+})`,
                   wallet: "0x7C3F...9Ae4",
+                  pseudoname: "QuantumSamurai",
                   rating: 5
                 },
                 {
                   image: "/nft2.png",
-                  prompt: "const entity = await menthol.create({base: \"ethereal being\", attributes: {form: \"energy manifestation\", colors: [\"cyan\", \"white\"], environment: \"cosmic void\"}, quantum: true})",
+                  prompt: `const entity = await menthol.create({
+  base: "ethereal being",
+  attributes: {
+    form: "energy manifestation",
+    colors: ["cyan", "white"],
+    environment: "cosmic void"
+  },
+  quantum: true,
+  dimensions: {
+    space: 4,
+    time: 1
+  },
+  physics: {
+    particle_effects: true,
+    light_scattering: "volumetric",
+    energy_flow: "dynamic"
+  },
+  neural_params: {
+    creativity: 0.95,
+    coherence: 0.85
+  }
+})`,
                   wallet: "0x4F2B...8Bd5",
+                  pseudoname: "EtherealMind",
                   rating: 5
                 },
                 {
                   image: "/nft3.png",
-                  prompt: "// Generate cybernetic entities\nconst result = await menthol.compose({subjects: [\"human\", \"android\"], style: \"futuristic\", mergeParams: {blendMode: \"quantum\", intensity: 0.8}})",
+                  prompt: `// Generate cybernetic entities
+const result = await menthol.compose({
+  subjects: ["human", "android"],
+  style: "futuristic samurai",
+  mergeParams: {
+    blendMode: "quantum",
+    intensity: 0.8,
+    harmony: 0.9
+  },
+  equipment: {
+    armor: "neo-feudal",
+    weapons: "energy katana",
+    tech_level: "advanced"
+  },
+  quantum_settings: {
+    superposition: true,
+    entanglement: "high",
+    wave_function: "custom"
+  },
+  neural_enhancement: {
+    detail_boost: 1.2,
+    style_strength: 0.95
+  }
+})`,
                   wallet: "0x2A9D...9Cf7",
+                  pseudoname: "CyberShogun",
                   rating: 5
                 }
               ].map((nft) => (
-                <NFTCard key={nft.wallet} {...nft} />
+                <div className="relative" key={nft.wallet}>
+                  {/* Outer glow effects - positioned behind the card */}
+                  <div className="absolute -inset-[10px] z-0">
+                    {/* Base glow */}
+                    <div className="absolute inset-0 bg-[#00FFD1]/20 rounded-2xl blur-xl" />
+                    {/* Animated glow ring */}
+                    <div className="absolute inset-0 bg-gradient-conic from-[#00FFD1]/40 via-transparent to-[#00FFD1]/40 rounded-2xl blur-lg animate-spin-slow" />
+                    {/* Extra glow layers */}
+                    <div className="absolute inset-0 bg-gradient-radial from-[#00FFD1]/20 to-transparent rounded-2xl blur-xl" />
+                  </div>
+
+                  {/* Card */}
+                  <motion.div
+                    className="relative z-10 rounded-xl overflow-hidden bg-black border border-[#00FFD1]/10 hover:border-[#00FFD1]/30 transition-all duration-300 w-full h-[500px] flex flex-col"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    {/* Card content container */}
+                    <div className="relative w-full h-full flex flex-col bg-black rounded-xl overflow-hidden">
+                      {/* Image container with reduced height */}
+                      <div className="relative h-[250px]">
+                        <Image 
+                          src={nft.image}
+                          alt={`NFT by ${nft.wallet}`}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        
+                        {/* Rating stars with glow effect */}
+                        <div className="absolute top-3 right-3 flex gap-0.5 z-10">
+                          {[...Array(nft.rating)].map((_, i) => (
+                            <motion.span 
+                              key={i} 
+                              className="text-[#00FFD1] text-sm drop-shadow-[0_0_3px_rgba(0,255,209,0.5)]"
+                              initial={{ opacity: 0.5 }}
+                              animate={{ opacity: [0.5, 1, 0.5] }}
+                              transition={{ 
+                                duration: 2,
+                                repeat: Infinity,
+                                delay: i * 0.1 
+                              }}
+                            >
+                              ★
+                            </motion.span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Code prompt section with terminal-like styling */}
+                      <div className="bg-black p-4 border-t border-[#00FFD1]/10 flex-grow">
+                        {/* Terminal header */}
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="flex gap-1.5">
+                            <div className="w-2 h-2 rounded-full bg-[#FF5F56]" />
+                            <div className="w-2 h-2 rounded-full bg-[#FFBD2E]" />
+                            <div className="w-2 h-2 rounded-full bg-[#27C93F]" />
+                          </div>
+                          <span className="text-[#00FFD1]/50 text-xs font-mono">menthol.generate</span>
+                        </div>
+                        
+                        {/* Code content with scrolling effect - reduced height */}
+                        <div className="h-[150px] overflow-y-auto overflow-x-auto scrollbar-thin scrollbar-thumb-[#00FFD1]/20 scrollbar-track-black">
+                          <code className="text-xs text-[#00FFD1]/80 font-mono block whitespace-pre">
+                            {nft.prompt}
+                          </code>
+                        </div>
+                      </div>
+
+                      {/* Updated wallet info with pseudoname and enhanced animations */}
+                      <div className="p-3 bg-black border-t border-[#00FFD1]/10">
+                        <motion.div 
+                          className="flex items-center justify-between"
+                          initial={{ opacity: 0.8 }}
+                          whileHover={{ opacity: 1 }}
+                        >
+                          {/* Left side - Wallet address with pulse */}
+                          <motion.div 
+                            className="flex items-center gap-2"
+                            whileHover={{ x: 3 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                          >
+                            <div className="w-2 h-2 bg-[#00FFD1] rounded-full animate-pulse" />
+                            <motion.p 
+                              className="font-mono text-xs text-[#00FFD1]/80 hover:text-[#00FFD1] transition-colors"
+                              whileHover={{ letterSpacing: '0.05em' }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              {nft.wallet}
+                            </motion.p>
+                          </motion.div>
+
+                          {/* Right side - Pseudoname with glow */}
+                          <motion.div
+                            className="flex items-center gap-2"
+                            initial={{ opacity: 0.7 }}
+                            whileHover={{ 
+                              opacity: 1,
+                              scale: 1.05,
+                              x: -3
+                            }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <span className="text-xs text-[#00FFD1]/60">|</span>
+                            <motion.span 
+                              className="text-xs font-medium text-[#00FFD1] drop-shadow-[0_0_3px_rgba(0,255,209,0.5)]"
+                              whileHover={{
+                                textShadow: [
+                                  "0 0 4px rgba(0,255,209,0.5)",
+                                  "0 0 8px rgba(0,255,209,0.5)",
+                                  "0 0 4px rgba(0,255,209,0.5)"
+                                ]
+                              }}
+                              transition={{ duration: 1, repeat: Infinity }}
+                            >
+                              {nft.pseudoname}
+                            </motion.span>
+                          </motion.div>
+                        </motion.div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
               ))}
             </div>
           </div>
