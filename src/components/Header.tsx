@@ -135,15 +135,22 @@ export function Header() {
               <div className="absolute inset-0 bg-[#00FFD1]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
             </motion.a>
 
-            {/* Launch App Button with enhanced glow */}
+            {/* Launch App Button */}
             <motion.button
               whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-[#00FFD1] text-black px-6 py-2 rounded-full font-medium relative group overflow-hidden"
+              whileTap={{ scale: 0.98 }}
+              className="group relative"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#00FFD1] to-[#00FFD1]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute -inset-1 bg-[#00FFD1]/30 blur-xl opacity-0 group-hover:opacity-100 transition-all duration-300" />
-              <span className="relative z-10">Launch App</span>
+              {/* Neon border effect */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00FFD1]/0 via-[#00FFD1]/50 to-[#00FFD1]/0 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-300" />
+              
+              {/* Main button */}
+              <div className="relative px-6 py-2 bg-black/40 backdrop-blur-sm border border-[#00FFD1]/50 rounded-lg text-[#00FFD1] font-bold">
+                Launch App
+                
+                {/* Inner glow */}
+                <div className="absolute inset-0 rounded-lg bg-[#00FFD1]/5 opacity-0 group-hover:opacity-100 transition duration-300" />
+              </div>
             </motion.button>
           </div>
         </nav>

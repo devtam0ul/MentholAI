@@ -14,6 +14,7 @@ import { AnimatedRustCode } from '@/components/AnimatedRustCode'
 import Image from 'next/image'
 import { NFTCard } from '@/components/NFTCard'
 import { AudioPlayer } from '@/components/AudioPlayer'
+import { Sparkles, Globe } from 'lucide-react'
 
 const FEATURES = [
   {
