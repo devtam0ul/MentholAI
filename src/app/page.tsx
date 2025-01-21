@@ -8,6 +8,7 @@ import { DynamicElements } from '@/components/DynamicElements'
 import { ClientLayout } from '@/components/ClientLayout'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
+import { SocialProof } from '@/components/SocialProof'
 
 const FEATURES = [
   {
@@ -91,7 +92,7 @@ export default function Home() {
       <HeroSection />
 
       {/* Revolutionary Features Section */}
-      <section className="py-24 px-6">
+      <section className="min-h-screen py-24 px-6 flex items-center justify-center">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4">
             Revolutionary Features
@@ -100,13 +101,13 @@ export default function Home() {
             Menthol combines cutting-edge AI, quantum computing, and blockchain to redefine digital creativity
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {FEATURE_CARDS.map((feature) => (
+            {FEATURES.map((feature) => (
               <FeatureCard
                 key={feature.title}
-                icon={feature.icon}
+                iconType={feature.title === "Quantum Neural Processing" ? "zap" : 
+                          feature.title === "AI-Driven Creativity" ? "cpu" : "layers"}
                 title={feature.title}
                 description={feature.description}
-                borderColor={feature.borderColor}
               />
             ))}
           </div>
@@ -114,10 +115,23 @@ export default function Home() {
       </section>
 
       {/* Tokenomics Section */}
-      <section className="py-24 px-6 bg-black/50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-[#00FFD1] text-5xl font-bold text-center mb-4">$MENTHOL Tokenomics</h2>
-          <p className="text-gray-400 text-xl text-center mb-16">Fair launch with transparent token distribution</p>
+      <section className="min-h-screen py-24 px-6 flex items-center justify-center relative">
+        {/* Background glow effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#00FFD1]/5 via-transparent to-transparent" />
+        
+        <div className="max-w-6xl mx-auto relative">
+          <div className="text-center mb-16">
+            <h2 className="text-white text-5xl font-bold mb-4 flex items-center justify-center gap-2">
+              <span className="text-[#00FFD1] inline-block transform hover:scale-110 transition-transform">$</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+                MENTHOL
+              </span>
+              <span className="text-white">Tokenomics</span>
+            </h2>
+            <p className="text-gray-400 text-xl">
+              Fair launch with transparent token distribution
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="space-y-4">
               <TokenomicsCard
@@ -163,6 +177,7 @@ export default function Home() {
         </div>
       </section>
 
+      <SocialProof />
       <CallToAction />
 
       {/* Footer */}

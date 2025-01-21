@@ -12,9 +12,9 @@ interface StatItemProps {
 }
 
 const StatItem = ({ icon, value, label, description }: StatItemProps) => {
-  const [props, api] = useSpring(() => ({
+  const [props] = useSpring(() => ({
     from: { number: 0 },
-    to: { number: parseInt(value.replace(/[^0-9]/g, '')) },
+    to: { number: parseInt(value) },
     delay: 1000,
     config: { mass: 1, tension: 20, friction: 10 },
   }))
@@ -65,14 +65,14 @@ export function EnhancedStatsBar() {
       <div className="flex items-center justify-between w-full">
         <StatItem
           icon={<Sparkles />}
-          value="1.2M"
+          value="7000"
           label="AI Models"
           description="Trained on diverse datasets for optimal performance"
         />
         <div className="w-px h-8 bg-gradient-to-b from-transparent via-[#00FFD1]/10 to-transparent" />
         <StatItem
           icon={<Globe2 />}
-          value="500K"
+          value="10000"
           label="Global Artists"
           description="Creative professionals using Menthol worldwide"
         />
