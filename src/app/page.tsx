@@ -106,6 +106,7 @@ export default function Home() {
     <main className="relative">
       <ClientLayout>
         <Header />
+
         <HeroSection />
 
         {/* Revolutionary Features Section */}
@@ -119,19 +120,58 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center mb-16"
+              className="text-center mb-16 relative"
             >
-              <motion.h2 
-                className="text-6xl font-bold mb-6 tracking-tight"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <span className="bg-gradient-to-r from-[#00FFD1] to-white bg-clip-text text-transparent">
-                  Revolutionary
-                </span>{" "}
-                Features
-              </motion.h2>
+              <motion.div className="flex items-center justify-center gap-4">
+                <motion.h2 
+                  className="text-6xl font-bold mb-6 tracking-tight"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <span className="bg-gradient-to-r from-[#00FFD1] to-white bg-clip-text text-transparent">
+                    Revolutionary
+                  </span>{" "}
+                  Features
+                </motion.h2>
+
+                {/* Menthol Avatar */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ 
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  transition={{ duration: 0.6 }}
+                  className="relative w-24 h-24 flex items-center justify-center"
+                >
+                  <motion.div
+                    animate={{ 
+                      y: [0, -5, 0],
+                      rotate: [-3, 3, -3],
+                    }}
+                    transition={{
+                      duration: 4,
+                      ease: "easeInOut",
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  >
+                    <Image
+                      src="/menthol-avatar.png"
+                      alt="Menthol Mascot"
+                      width={96}
+                      height={96}
+                      className="relative z-50"
+                      style={{ 
+                        filter: 'drop-shadow(0 0 10px rgba(0, 255, 209, 0.3))'
+                      }}
+                      priority
+                    />
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+
               <motion.p 
                 className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed"
                 initial={{ opacity: 0 }}
@@ -415,15 +455,55 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-[#00FFD1] to-white bg-clip-text text-transparent">
-                Advanced Technology
-              </h2>
-              <p className="text-gray-400 text-xl">
-                Powered by Rust, quantum computing, and intelligent AI models
-              </p>
+              {/* Title without Avatar */}
+              <div className="flex items-center justify-center gap-4">
+                <h2 className="text-7xl font-bold bg-gradient-to-r from-[#00FFD1] to-white bg-clip-text text-transparent leading-normal">
+                  Advanced Technology
+                </h2>
+              </div>
+
+              {/* Enhanced description with animated reveal */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+                className="max-w-4xl mx-auto space-y-4 mt-8"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
+                  <motion.div 
+                    className="p-3 rounded-lg bg-black/20 border border-[#00FFD1]/10"
+                    whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.3)' }}
+                  >
+                    <h3 className="text-[#00FFD1] font-semibold mb-1 text-sm">Rust-Powered Core</h3>
+                    <p className="text-gray-400 text-xs">
+                      Built with blazing-fast, memory-safe Rust for unparalleled performance and reliability
+                    </p>
+                  </motion.div>
+                  
+                  <motion.div 
+                    className="p-3 rounded-lg bg-black/20 border border-[#00FFD1]/10"
+                    whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.3)' }}
+                  >
+                    <h3 className="text-[#00FFD1] font-semibold mb-1 text-sm">Quantum Computing</h3>
+                    <p className="text-gray-400 text-xs">
+                      Leveraging quantum algorithms for unprecedented creative possibilities and processing power
+                    </p>
+                  </motion.div>
+                  
+                  <motion.div 
+                    className="p-3 rounded-lg bg-black/20 border border-[#00FFD1]/10"
+                    whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.3)' }}
+                  >
+                    <h3 className="text-[#00FFD1] font-semibold mb-1 text-sm">AI Models</h3>
+                    <p className="text-gray-400 text-xs">
+                      Advanced neural networks trained on vast datasets for intelligent art generation
+                    </p>
+                  </motion.div>
+                </div>
+              </motion.div>
             </motion.div>
 
-            {/* Code block with enhanced styling */}
+            {/* Code block with enhanced styling and avatar */}
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
@@ -434,7 +514,60 @@ export default function Home() {
               {/* Glow effect behind code block */}
               <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00FFD1]/30 to-[#004D40]/30 rounded-lg blur-lg opacity-75" />
               
-              <AnimatedRustCode />
+              <div className="flex items-center gap-8">
+                <div className="flex-1">
+                  <AnimatedRustCode />
+                </div>
+                
+                {/* Avatar next to code */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="relative w-32 h-32 flex-shrink-0 hidden lg:flex items-center justify-center"
+                >
+                  <motion.div
+                    animate={{ 
+                      y: [0, -10, 0],
+                      rotate: [-5, 5, -5],
+                      scale: [1, 1.1, 1]
+                    }}
+                    transition={{
+                      duration: 5,
+                      ease: "easeInOut",
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-[#00FFD1]/20 blur-2xl rounded-full" />
+                    <motion.div
+                      animate={{
+                        boxShadow: [
+                          "0 0 20px rgba(0, 255, 209, 0.2)",
+                          "0 0 60px rgba(0, 255, 209, 0.4)",
+                          "0 0 20px rgba(0, 255, 209, 0.2)"
+                        ]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatType: "reverse"
+                      }}
+                    >
+                      <Image
+                        src="/menthol-avatar.png"
+                        alt="Menthol Mascot"
+                        width={128}
+                        height={128}
+                        className="relative z-50"
+                        style={{ 
+                          filter: 'drop-shadow(0 0 10px rgba(0, 255, 209, 0.3))'
+                        }}
+                        priority
+                      />
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </motion.section>
