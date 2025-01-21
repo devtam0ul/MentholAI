@@ -8,6 +8,7 @@ import { EnhancedStatsBar } from './EnhancedStatsBar'
 import { AccessibleButton } from '@/components/AccessibleButton'
 import { FeatureCard } from './FeatureCard'
 import { LucideIcon } from 'lucide-react'
+import Link from 'next/link'
 
 const words = [
   "Quantum-Powered NFT Platform",
@@ -71,7 +72,7 @@ export function HeroSection() {
   }
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen p-24 overflow-visible">
+    <div className="relative flex flex-col items-center justify-center min-h-screen p-4 md:p-24 overflow-visible">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black/50" />
       
       <div className="absolute inset-0 overflow-hidden">
@@ -174,7 +175,7 @@ export function HeroSection() {
         transition={{ duration: 0.8 }}
         className="text-center space-y-8 max-w-4xl mx-auto relative z-10 mt-16"
       >
-        <div className="relative inline-flex items-center justify-center gap-2">
+        <div className="relative inline-flex items-center justify-center gap-2 flex-col md:flex-row">
           <motion.h1 
             className="relative"
             initial={{ opacity: 0, x: -20 }}
@@ -205,44 +206,72 @@ export function HeroSection() {
             <div className="absolute -inset-2 bg-[#00FFD1]/20 blur-xl" />
 
             {/* Main text stays clean */}
-            <span className="relative block text-white text-9xl font-extrabold tracking-tight leading-none">
+            <span className="relative block text-white text-6xl md:text-9xl font-extrabold tracking-tight leading-none">
               Menthol
             </span>
           </motion.h1>
           
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, x: 20 }}
+            initial={{ opacity: 1, scale: 0.8 }}
             animate={{ 
-              opacity: 1, 
-              scale: 1, 
-              x: 0,
-              y: [0, -8, 0]
+              opacity: 1,
+              scale: 1,
             }}
             transition={{ 
               duration: 0.6,
-              delay: 0.2,
-              y: {
+              ease: "easeOut"
+            }}
+            className="relative w-24 h-24 md:w-32 md:h-32 flex items-center justify-center mt-4 md:mt-0"
+            style={{ 
+              zIndex: 30,
+              mixBlendMode: 'normal',
+              isolation: 'isolate'
+            }}
+          >
+            {/* Enhanced glow effect */}
+            <motion.div 
+              className="absolute inset-0 bg-[#00FFD1]/10 rounded-full blur-xl"
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.5, 0.7, 0.5]
+              }}
+              transition={{
                 duration: 2,
                 repeat: Infinity,
                 ease: "easeInOut"
-              }
-            }}
-            className="relative w-32 h-32 flex items-center justify-center"
-          >
-            <div className="absolute inset-0 bg-[#00FFD1]/10 rounded-full blur-xl animate-pulse" />
-            
-            <div className="absolute inset-0 animate-spin-slow">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#00FFD1]/30 rounded-full blur-sm" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#00FFD1]/30 rounded-full blur-sm" />
-            </div>
-            
-            <Image
-              src="/menthol-avatar.png"
-              alt="Menthol Mascot"
-              width={120}
-              height={120}
-              className="object-contain relative z-10 hover:scale-110 transition-transform duration-300"
+              }}
             />
+            
+            {/* Mascot image - with continuous animation */}
+            <motion.div
+              animate={{ 
+                y: [0, -5, 0],
+                rotate: [-3, 3, -3],
+              }}
+              transition={{
+                duration: 4,
+                ease: "easeInOut",
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+              className="relative z-50"
+              style={{ isolation: 'isolate' }}
+            >
+              <Image
+                src="/menthol-avatar.png"
+                alt="Menthol Mascot"
+                width={120}
+                height={120}
+                className="relative z-50"
+                style={{ 
+                  filter: 'drop-shadow(0 0 10px rgba(0, 255, 209, 0.3))',
+                  opacity: 1,
+                  mixBlendMode: 'normal',
+                  isolation: 'isolate'
+                }}
+                priority
+              />
+            </motion.div>
           </motion.div>
         </div>
         
@@ -253,72 +282,56 @@ export function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="text-5xl font-bold mb-8 tracking-tight leading-tight bg-gradient-to-r from-white via-white to-gray-400 text-transparent bg-clip-text"
+              className="text-3xl md:text-5xl font-bold mb-8 tracking-tight leading-tight bg-gradient-to-r from-white via-white to-gray-400 text-transparent bg-clip-text px-4 md:px-0"
             >
               {words[currentIndex]}
             </motion.h2>
           </AnimatePresence>
         </div>
         
-        <p className="text-gray-400 text-xl max-w-3xl mx-auto mb-16 leading-relaxed font-light animate-fade-in [animation-delay:400ms]">
+        <p className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto mb-8 md:mb-16 leading-relaxed font-light animate-fade-in [animation-delay:400ms] px-4 md:px-0">
           Menthol integrates machine learning with decentralized networks, empowering creators with powerful tools for artistic expression and global collaboration.
         </p>
         
-        <div className="flex gap-6 justify-center animate-fade-in [animation-delay:600ms]">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center animate-fade-in [animation-delay:600ms] w-full md:w-auto px-4 md:px-0">
           {/* BUY $MENTHOL Button */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            className="group relative"
-          >
-            {/* Enhanced outer glow effect */}
-            <div className="absolute -inset-1 bg-[#00FFD1]/20 rounded-lg blur-2xl opacity-75 group-hover:opacity-100 animate-pulse transition duration-300" />
-            
-            {/* Main button */}
-            <div className="relative px-8 py-4 bg-[#00FFD1] rounded-lg flex items-center gap-2 overflow-hidden">
-              <span className="text-black font-bold text-lg z-10">
+          <Link href="/buy" className="group relative w-full md:w-auto">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00FFD1]/0 via-[#00FFD1]/50 to-[#00FFD1]/0 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-300" />
+              
+              <div className="relative px-8 py-4 bg-black/40 backdrop-blur-sm border border-[#00FFD1]/50 rounded-lg text-[#00FFD1] font-bold text-lg text-center">
                 BUY $MENTHOL
-              </span>
-              <motion.span
-                className="text-black"
-                animate={{
-                  x: [0, 4, 0],
-                  opacity: [1, 0.7, 1],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                →
-              </motion.span>
-              
-              {/* Shine effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-            </div>
+                <div className="absolute inset-0 rounded-lg bg-[#00FFD1]/5 opacity-0 group-hover:opacity-100 transition duration-300" />
+              </div>
+            </motion.div>
+          </Link>
 
-            {/* Hover ring effect */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-[#00FFD1]/0 via-[#00FFD1]/10 to-[#00FFD1]/0 rounded-xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500" />
-          </motion.button>
-
-          {/* Try Menthol Button */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            className="group relative"
+          {/* Try Menthol Button - Updated with GitHub link */}
+          <Link 
+            href="https://github.com/mentholai/menthol"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative w-full md:w-auto"
           >
-            {/* Neon border effect */}
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00FFD1]/0 via-[#00FFD1]/50 to-[#00FFD1]/0 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-300" />
-            
-            {/* Main button */}
-            <div className="relative px-8 py-4 bg-black/40 backdrop-blur-sm border border-[#00FFD1]/50 rounded-lg text-[#00FFD1] font-bold text-lg">
-              Try Menthol
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              {/* Neon border effect */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00FFD1]/0 via-[#00FFD1]/50 to-[#00FFD1]/0 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-300" />
               
-              {/* Inner glow */}
-              <div className="absolute inset-0 rounded-lg bg-[#00FFD1]/5 opacity-0 group-hover:opacity-100 transition duration-300" />
-            </div>
-          </motion.button>
+              {/* Main button */}
+              <div className="relative px-8 py-4 bg-black/40 backdrop-blur-sm border border-[#00FFD1]/50 rounded-lg text-[#00FFD1] font-bold text-lg text-center">
+                Try Menthol
+                
+                {/* Inner glow */}
+                <div className="absolute inset-0 rounded-lg bg-[#00FFD1]/5 opacity-0 group-hover:opacity-100 transition duration-300" />
+              </div>
+            </motion.div>
+          </Link>
         </div>
       </motion.div>
 
