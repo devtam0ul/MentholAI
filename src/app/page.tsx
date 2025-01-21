@@ -1,3 +1,4 @@
+'use client'
 import { HeroSection } from '@/components/HeroSection'
 import { CallToAction } from '@/components/CallToAction'
 import { Icons } from '@/components/Icons'
@@ -8,20 +9,22 @@ import { DynamicElements } from '@/components/DynamicElements'
 import { ClientLayout } from '@/components/ClientLayout'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { SocialProof } from '@/components/SocialProof'
+import { motion } from 'framer-motion'
+import { AnimatedCode } from '@/components/AnimatedCode'
+import Image from 'next/image'
 
 const FEATURES = [
   {
     title: "Quantum Neural Processing",
-    description: "Advanced AI that generates unique, context-aware NFTs using quantum computing principles."
+    description: "Harness the power of quantum computing to generate unique, context-aware NFTs. Our advanced neural networks analyze patterns across multiple dimensions, ensuring each creation is truly one-of-a-kind and deeply meaningful to its owner."
   },
   {
     title: "AI-Driven Creativity",
-    description: "Intelligent algorithms that transform text prompts into stunning digital artworks."
+    description: "Experience the next evolution in digital art creation. Our sophisticated AI algorithms transform your text prompts into stunning visual masterpieces, combining elements from millions of data points to generate unprecedented artistic expressions."
   },
   {
     title: "Blockchain Integration",
-    description: "Seamless Solana blockchain minting and verification of your unique digital assets."
+    description: "Seamlessly mint and verify your digital assets on the Solana blockchain. Enjoy lightning-fast transactions, minimal environmental impact, and bulletproof security while maintaining full ownership of your unique creations."
   }
 ]
 
@@ -81,121 +84,405 @@ const FEATURE_CARDS = [
 ]
 
 const TokenomicsChart = dynamic(() => import('@/components/TokenomicsChart'), {
-  ssr: false,
   loading: () => <div className="w-full aspect-square bg-black/30 rounded-full animate-pulse" />
 })
 
 export default function Home() {
   return (
-    <ClientLayout>
-      <Header />
-      <HeroSection />
+    <main>
+      <ClientLayout>
+        <Header />
+        <HeroSection />
 
-      {/* Revolutionary Features Section */}
-      <section className="min-h-screen py-24 px-6 flex items-center justify-center">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-4">
-            Revolutionary Features
-          </h2>
-          <p className="text-gray-400 text-xl text-center mb-16">
-            Menthol combines cutting-edge AI, quantum computing, and blockchain to redefine digital creativity
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {FEATURES.map((feature) => (
-              <FeatureCard
-                key={feature.title}
-                iconType={feature.title === "Quantum Neural Processing" ? "zap" : 
-                          feature.title === "AI-Driven Creativity" ? "cpu" : "layers"}
-                title={feature.title}
-                description={feature.description}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+        {/* Revolutionary Features Section */}
+        <section id="features" className="h-screen relative flex items-center justify-center overflow-hidden">
+          {/* Dynamic background effects */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-[#004D40]/20 to-black" />
+          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.02]" />
+          
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
+            >
+              <motion.h2 
+                className="text-6xl font-bold mb-6 tracking-tight"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="bg-gradient-to-r from-[#00FFD1] to-white bg-clip-text text-transparent">
+                  Revolutionary
+                </span>{" "}
+                Features
+              </motion.h2>
+              <motion.p 
+                className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                Experience the convergence of quantum computing, artificial intelligence, and blockchain technology 
+                as we revolutionize the future of digital art creation and ownership.
+              </motion.p>
+            </motion.div>
 
-      {/* Tokenomics Section */}
-      <section className="min-h-screen py-24 px-6 flex items-center justify-center relative">
-        {/* Background glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#00FFD1]/5 via-transparent to-transparent" />
-        
-        <div className="max-w-6xl mx-auto relative">
-          <div className="text-center mb-16">
-            <h2 className="text-white text-5xl font-bold mb-4 flex items-center justify-center gap-2">
-              <span className="text-[#00FFD1] inline-block transform hover:scale-110 transition-transform">$</span>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
-                MENTHOL
-              </span>
-              <span className="text-white">Tokenomics</span>
-            </h2>
-            <p className="text-gray-400 text-xl">
-              Fair launch with transparent token distribution
-            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+              {FEATURES.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="relative group h-full"
+                >
+                  {/* Glowing background effect */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00FFD1]/0 via-[#00FFD1]/10 to-[#00FFD1]/0 
+                                 rounded-xl blur opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                  
+                  {/* Card content */}
+                  <div className="relative bg-black/40 border border-[#00FFD1]/10 rounded-xl p-8 
+                                 backdrop-blur-sm hover:bg-black/50 transition-all h-full flex flex-col">
+                    {/* Icon with animation */}
+                    <motion.div
+                      className="w-12 h-12 mb-6 text-[#00FFD1] shrink-0"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      {feature.title === "Quantum Neural Processing" ? (
+                        <Icons.Lightning className="w-full h-full" />
+                      ) : feature.title === "AI-Driven Creativity" ? (
+                        <Icons.Chip className="w-full h-full" />
+                      ) : (
+                        <Icons.Stack className="w-full h-full" />
+                      )}
+                    </motion.div>
+
+                    {/* Title with hover effect */}
+                    <motion.h3 
+                      className="text-2xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 
+                                 bg-clip-text text-transparent group-hover:from-[#00FFD1] group-hover:to-white
+                                 transition-all duration-300 shrink-0"
+                    >
+                      {feature.title}
+                    </motion.h3>
+
+                    {/* Description with fade-in effect */}
+                    <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors flex-grow">
+                      {feature.description}
+                    </p>
+
+                    {/* Decorative elements */}
+                    <div className="absolute top-4 right-4 w-20 h-20 border border-[#00FFD1]/5 rounded-full 
+                                  group-hover:border-[#00FFD1]/20 transition-all duration-500" />
+                    <div className="absolute bottom-4 left-4 w-16 h-16 border border-[#00FFD1]/5 rounded-full 
+                                  group-hover:border-[#00FFD1]/20 transition-all duration-500" />
+                  </div>
+
+                  {/* Particle effects on hover */}
+                  <motion.div
+                    className="absolute -inset-4 pointer-events-none"
+                    animate={{
+                      background: [
+                        "radial-gradient(circle at center, rgba(0,255,209,0) 0%, rgba(0,255,209,0) 100%)",
+                        "radial-gradient(circle at center, rgba(0,255,209,0.1) 0%, rgba(0,255,209,0) 100%)",
+                        "radial-gradient(circle at center, rgba(0,255,209,0) 0%, rgba(0,255,209,0) 100%)"
+                      ]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  />
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Interactive floating elements */}
+            <div className="absolute inset-0 pointer-events-none">
+              {[...Array(20)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1 h-1 bg-[#00FFD1]/20 rounded-full"
+                  style={{
+                    top: `${Math.random() * 100}%`,
+                    left: `${Math.random() * 100}%`,
+                  }}
+                  animate={{
+                    y: [0, -20, 0],
+                    opacity: [0.2, 0.5, 0.2],
+                  }}
+                  transition={{
+                    duration: 2 + Math.random() * 2,
+                    repeat: Infinity,
+                    delay: Math.random() * 2,
+                  }}
+                />
+              ))}
+            </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div className="space-y-4">
-              <TokenomicsCard
-                title="Public Sale"
-                percentage={90}
-                description="Freely tradable on the open market"
-                icon={<Icons.Wallet />}
-              />
-              <TokenomicsCard
-                title="Team Allocation"
-                percentage={10}
-                description="8% locked for 6 months, vested carefully"
-                icon={<Icons.Stack />}
-              />
-              <div className="bg-black/30 rounded-lg p-6 border border-[#00FFD1]/10">
-                <h3 className="text-xl font-medium text-white mb-4 flex items-center gap-2">
-                  <span className="text-[#00FFD1]">📋</span> Fair Launch Details
-                </h3>
-                <ul className="space-y-2 text-gray-400">
-                  {TOKENOMICS.fairLaunch.map((item) => (
-                    <li key={item} className="flex items-center gap-2">
-                      <span className="text-[#00FFD1]">•</span> {item}
-                    </li>
-                  ))}
-                </ul>
+        </section>
+
+        {/* Tokenomics Section */}
+        <section id="tokenomics" className="h-screen px-6 flex items-center justify-center relative">
+          <div className="max-w-7xl mx-auto relative">
+            <motion.div 
+              className="text-center mb-16"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className="text-6xl font-bold mb-4 flex items-center justify-center tracking-tight">
+                <motion.span 
+                  className="text-[#00FFD1] mr-3"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  $
+                </motion.span>
+                <span className="text-white font-extrabold">MENTHOL</span>
+                <span className="text-white ml-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">Tokenomics</span>
+              </h2>
+              <motion.p 
+                className="text-lg text-gray-400 mt-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                Fair launch with transparent token distribution
+              </motion.p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+              {/* Left side - Information */}
+              <motion.div 
+                className="space-y-4"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                {/* Public Sale Card */}
+                <motion.div 
+                  className="bg-black/40 rounded-xl p-4 border border-[#00FFD1]/10 backdrop-blur-sm hover:bg-black/50 transition-all"
+                  whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.2)' }}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icons.Wallet className="w-5 h-5 text-[#00FFD1]" />
+                    <h3 className="text-lg font-medium text-white">Public Sale</h3>
+                  </div>
+                  <div className="flex items-end gap-3">
+                    <span className="text-4xl font-bold text-[#00FFD1]">90%</span>
+                    <span className="text-gray-400 text-sm pb-1">Freely tradable on the open market</span>
+                  </div>
+                </motion.div>
+
+                {/* Team Allocation Card */}
+                <motion.div 
+                  className="bg-black/40 rounded-xl p-4 border border-[#00FFD1]/10 backdrop-blur-sm hover:bg-black/50 transition-all"
+                  whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.2)' }}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icons.Stack className="w-5 h-5 text-[#00FFD1]" />
+                    <h3 className="text-lg font-medium text-white">Team Allocation</h3>
+                  </div>
+                  <div className="flex items-end gap-3">
+                    <span className="text-4xl font-bold text-[#00FFD1]">10%</span>
+                    <span className="text-gray-400 text-sm pb-1">8% locked for 6 months, vested carefully</span>
+                  </div>
+                </motion.div>
+
+                {/* Fair Launch Details Card */}
+                <motion.div 
+                  className="bg-black/40 rounded-xl p-4 border border-[#00FFD1]/10 backdrop-blur-sm hover:bg-black/50 transition-all"
+                  whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.2)' }}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[#00FFD1] text-xl">📋</span>
+                    <h3 className="text-lg font-medium text-white">Fair Launch Details</h3>
+                  </div>
+                  <ul className="space-y-2">
+                    {TOKENOMICS.fairLaunch.map((item) => (
+                      <motion.li 
+                        key={item} 
+                        className="flex items-center gap-2 text-gray-400 text-sm"
+                        whileHover={{ x: 5, color: '#fff' }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <span className="text-[#00FFD1] text-base">•</span>
+                        <span>{item}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </motion.div>
+
+              {/* Right side - Chart */}
+              <motion.div 
+                className="flex justify-center pl-20"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <TokenomicsChart />
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Advanced Technology Section */}
+        <motion.section 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="py-24 px-6 relative"
+        >
+          <div className="absolute inset-0 bg-[#004D40]/10 blur-3xl" />
+          <div className="max-w-6xl mx-auto relative">
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-5xl font-bold mb-4">
+                Advanced Technology
+              </h2>
+              <p className="text-gray-400 text-xl">
+                Powered by Rust, quantum computing, and intelligent AI models
+              </p>
+            </motion.div>
+
+            {/* Replace DynamicElements with AnimatedCode */}
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00FFD1]/30 to-[#004D40]/30 rounded-lg blur-lg opacity-75" />
+              <AnimatedCode code={CODE_EXAMPLE} />
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* Community Generations Section */}
+        <section className="py-24 px-6 relative">
+          <div className="absolute inset-0 bg-[#004D40]/5 blur-3xl" />
+          <div className="max-w-7xl mx-auto relative">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-5xl font-bold mb-4">
+                <span className="text-[#00FFD1]">Community</span> Generations
+              </h2>
+              <p className="text-gray-400 text-xl">
+                Explore the incredible creations from our community
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  image: "/nft1.png",
+                  prompt: "await menthol.generate({prompt: \"cyberpunk samurai warriors, metallic armor, neon mint energy, ultra detailed\", style: \"cinematic\", enhancers: [\"quantum\", \"highDetail\"], seed: 1337})",
+                  author: "Sarah Chen",
+                  role: "Creative Director"
+                },
+                {
+                  image: "/nft2.png",
+                  prompt: "const entity = await menthol.create({base: \"ethereal being\", attributes: {form: \"energy manifestation\", colors: [\"cyan\", \"white\"], environment: \"cosmic void\"}, quantum: true})",
+                  author: "Michael Rodriguez",
+                  role: "NFT Artist"
+                },
+                {
+                  image: "/nft3.png",
+                  prompt: "// Generate cybernetic entities\nconst result = await menthol.compose({subjects: [\"human\", \"android\"], style: \"futuristic\", mergeParams: {blendMode: \"quantum\", intensity: 0.8}})",
+                  author: "David Park",
+                  role: "Tech Analyst"
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="relative group"
+                >
+                  {/* Image Container */}
+                  <div className="relative aspect-square rounded-xl overflow-hidden mb-4">
+                    <Image
+                      src={item.image}
+                      alt={`NFT by ${item.author}`}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  </div>
+
+                  {/* Code Preview */}
+                  <div className="bg-black/40 p-4 rounded-lg border border-[#00FFD1]/10 backdrop-blur-sm">
+                    <pre className="text-[#00FFD1] text-sm overflow-x-auto">
+                      <code>{item.prompt}</code>
+                    </pre>
+                  </div>
+
+                  {/* Author Info */}
+                  <div className="mt-4 flex items-center gap-3">
+                    <div>
+                      <h3 className="text-white font-medium">{item.author}</h3>
+                      <p className="text-[#00FFD1] text-sm">{item.role}</p>
+                    </div>
+                  </div>
+
+                  {/* Rating Stars */}
+                  <div className="absolute top-4 right-4 flex gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.1 * i }}
+                        className="text-[#00FFD1]"
+                      >
+                        ★
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <CallToAction />
+
+        {/* Footer */}
+        <footer className="py-12 px-6 bg-black/90 border-t border-[#00FFD1]/10">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex justify-center mb-8">
+              <div className="flex gap-8 items-center">
+                <Link href="/features" className="text-gray-400 hover:text-white transition-colors">Features</Link>
+                <Link href="/tokenomics" className="text-gray-400 hover:text-white transition-colors">Tokenomics</Link>
+                <Link href="/docs" className="text-gray-400 hover:text-white transition-colors">Docs</Link>
+                <Link href="https://github.com/mentholai" className="text-gray-400 hover:text-white transition-colors">GitHub</Link>
               </div>
             </div>
-            <div className="flex justify-center">
-              <TokenomicsChart />
+            <div className="text-center text-gray-500 text-sm">
+              © 2025 Menthol. All rights reserved.
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Advanced Technology Section */}
-      <section className="py-24 px-6">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-4">Advanced Technology</h2>
-          <p className="text-gray-400 text-xl text-center mb-16">
-            Powered by Rust, quantum computing, and intelligent AI models
-          </p>
-          <DynamicElements code={CODE_EXAMPLE} />
-        </div>
-      </section>
-
-      <SocialProof />
-      <CallToAction />
-
-      {/* Footer */}
-      <footer className="py-12 px-6 bg-black/90 border-t border-[#00FFD1]/10">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex justify-center mb-8">
-            <div className="flex gap-8 items-center">
-              <Link href="/features" className="text-gray-400 hover:text-white transition-colors">Features</Link>
-              <Link href="/tokenomics" className="text-gray-400 hover:text-white transition-colors">Tokenomics</Link>
-              <Link href="/docs" className="text-gray-400 hover:text-white transition-colors">Docs</Link>
-              <Link href="https://github.com/mentholai" className="text-gray-400 hover:text-white transition-colors">GitHub</Link>
-            </div>
-          </div>
-          <div className="text-center text-gray-500 text-sm">
-            © 2025 Menthol. All rights reserved.
-          </div>
-        </div>
-      </footer>
-    </ClientLayout>
+        </footer>
+      </ClientLayout>
+    </main>
   )
 } 

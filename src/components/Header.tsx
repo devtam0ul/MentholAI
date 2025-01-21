@@ -14,6 +14,17 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault()
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
+
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -46,20 +57,52 @@ export function Header() {
 
           {/* Navigation Links with enhanced hover effect */}
           <div className="hidden md:flex items-center gap-8">
-            {['Features', 'Tokenomics', 'Docs', 'GitHub'].map((item) => (
-              <Link
-                key={item}
-                href={`/${item.toLowerCase()}`}
-                className="relative text-gray-300 hover:text-white transition-colors group py-2"
-              >
-                <span className="relative z-10">{item}</span>
-                <motion.div
-                  className="absolute -bottom-1 left-0 h-[2px] bg-[#00FFD1] w-0 group-hover:w-full transition-all duration-300"
-                  whileHover={{ width: "100%" }}
-                />
-                <div className="absolute -bottom-1 left-0 h-[2px] w-full bg-[#00FFD1]/0 group-hover:bg-[#00FFD1]/20 blur-sm transition-all duration-300" />
-              </Link>
-            ))}
+            <a 
+              href="#features"
+              onClick={(e) => scrollToSection(e, 'features')}
+              className="relative text-gray-300 hover:text-white transition-colors group py-2"
+            >
+              <span className="relative z-10">Features</span>
+              <motion.div
+                className="absolute -bottom-1 left-0 h-[2px] bg-[#00FFD1] w-0 group-hover:w-full transition-all duration-300"
+                whileHover={{ width: "100%" }}
+              />
+              <div className="absolute -bottom-1 left-0 h-[2px] w-full bg-[#00FFD1]/0 group-hover:bg-[#00FFD1]/20 blur-sm transition-all duration-300" />
+            </a>
+            <a 
+              href="#tokenomics"
+              onClick={(e) => scrollToSection(e, 'tokenomics')}
+              className="relative text-gray-300 hover:text-white transition-colors group py-2"
+            >
+              <span className="relative z-10">Tokenomics</span>
+              <motion.div
+                className="absolute -bottom-1 left-0 h-[2px] bg-[#00FFD1] w-0 group-hover:w-full transition-all duration-300"
+                whileHover={{ width: "100%" }}
+              />
+              <div className="absolute -bottom-1 left-0 h-[2px] w-full bg-[#00FFD1]/0 group-hover:bg-[#00FFD1]/20 blur-sm transition-all duration-300" />
+            </a>
+            <Link 
+              href="/docs"
+              className="relative text-gray-300 hover:text-white transition-colors group py-2"
+            >
+              <span className="relative z-10">Docs</span>
+              <motion.div
+                className="absolute -bottom-1 left-0 h-[2px] bg-[#00FFD1] w-0 group-hover:w-full transition-all duration-300"
+                whileHover={{ width: "100%" }}
+              />
+              <div className="absolute -bottom-1 left-0 h-[2px] w-full bg-[#00FFD1]/0 group-hover:bg-[#00FFD1]/20 blur-sm transition-all duration-300" />
+            </Link>
+            <Link 
+              href="https://github.com/mentholai"
+              className="relative text-gray-300 hover:text-white transition-colors group py-2"
+            >
+              <span className="relative z-10">GitHub</span>
+              <motion.div
+                className="absolute -bottom-1 left-0 h-[2px] bg-[#00FFD1] w-0 group-hover:w-full transition-all duration-300"
+                whileHover={{ width: "100%" }}
+              />
+              <div className="absolute -bottom-1 left-0 h-[2px] w-full bg-[#00FFD1]/0 group-hover:bg-[#00FFD1]/20 blur-sm transition-all duration-300" />
+            </Link>
           </div>
 
           {/* Social Links with enhanced glow */}

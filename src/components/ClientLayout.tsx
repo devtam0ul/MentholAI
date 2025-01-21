@@ -1,13 +1,18 @@
 'use client'
 import { ReactNode } from 'react'
 import dynamic from 'next/dynamic'
+import { ParticleEffect } from './ParticleEffect'
 
 const QuantumEffect = dynamic(() => import('./QuantumEffect'), {
   loading: () => null,
   ssr: false
 })
 
-export function ClientLayout({ children }: { children: ReactNode }) {
+interface ClientLayoutProps {
+  children: ReactNode
+}
+
+export function ClientLayout({ children }: ClientLayoutProps) {
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
       {/* Background base gradient */}
@@ -24,6 +29,9 @@ export function ClientLayout({ children }: { children: ReactNode }) {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-[#004D40]/30 via-transparent to-transparent" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] from-[#00FFD1]/5 via-transparent to-transparent" />
       </div>
+
+      {/* Particle effect */}
+      <ParticleEffect />
 
       {/* Content */}
       <div className="relative z-20">
