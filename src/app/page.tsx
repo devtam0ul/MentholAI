@@ -10,8 +10,9 @@ import { ClientLayout } from '@/components/ClientLayout'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
-import { AnimatedCode } from '@/components/AnimatedCode'
+import { AnimatedRustCode } from '@/components/AnimatedRustCode'
 import Image from 'next/image'
+import { NFTCard } from '@/components/NFTCard'
 
 const FEATURES = [
   {
@@ -238,7 +239,7 @@ export default function Home() {
             >
               <h2 className="text-6xl font-bold mb-4 flex items-center justify-center tracking-tight">
                 <motion.span 
-                  className="text-[#00FFD1] mr-3"
+                  className="text-[#00FFD1] mr-0"
                   whileHover={{ scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 400 }}
                 >
@@ -339,9 +340,14 @@ export default function Home() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="py-24 px-6 relative"
+          className="py-24 px-6 relative bg-black"
         >
-          <div className="absolute inset-0 bg-[#004D40]/10 blur-3xl" />
+          {/* Glow effect background */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-[#00FFD1]/5 blur-[100px] opacity-30" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 bg-[#004D40]/20 rounded-full blur-[120px]" />
+          </div>
+
           <div className="max-w-6xl mx-auto relative">
             <motion.div
               initial={{ y: 20, opacity: 0 }}
@@ -350,7 +356,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-5xl font-bold mb-4">
+              <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-[#00FFD1] to-white bg-clip-text text-transparent">
                 Advanced Technology
               </h2>
               <p className="text-gray-400 text-xl">
@@ -358,7 +364,7 @@ export default function Home() {
               </p>
             </motion.div>
 
-            {/* Replace DynamicElements with AnimatedCode */}
+            {/* Code block with enhanced styling */}
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
@@ -366,8 +372,10 @@ export default function Home() {
               viewport={{ once: true }}
               className="relative"
             >
+              {/* Glow effect behind code block */}
               <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00FFD1]/30 to-[#004D40]/30 rounded-lg blur-lg opacity-75" />
-              <AnimatedCode code={CODE_EXAMPLE} />
+              
+              <AnimatedRustCode />
             </motion.div>
           </div>
         </motion.section>
@@ -395,70 +403,23 @@ export default function Home() {
                 {
                   image: "/nft1.png",
                   prompt: "await menthol.generate({prompt: \"cyberpunk samurai warriors, metallic armor, neon mint energy, ultra detailed\", style: \"cinematic\", enhancers: [\"quantum\", \"highDetail\"], seed: 1337})",
-                  author: "Sarah Chen",
-                  role: "Creative Director"
+                  wallet: "0x7C3F...9Ae4",
+                  rating: 5
                 },
                 {
                   image: "/nft2.png",
                   prompt: "const entity = await menthol.create({base: \"ethereal being\", attributes: {form: \"energy manifestation\", colors: [\"cyan\", \"white\"], environment: \"cosmic void\"}, quantum: true})",
-                  author: "Michael Rodriguez",
-                  role: "NFT Artist"
+                  wallet: "0x4F2B...8Bd5",
+                  rating: 5
                 },
                 {
                   image: "/nft3.png",
                   prompt: "// Generate cybernetic entities\nconst result = await menthol.compose({subjects: [\"human\", \"android\"], style: \"futuristic\", mergeParams: {blendMode: \"quantum\", intensity: 0.8}})",
-                  author: "David Park",
-                  role: "Tech Analyst"
+                  wallet: "0x2A9D...9Cf7",
+                  rating: 5
                 }
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative group"
-                >
-                  {/* Image Container */}
-                  <div className="relative aspect-square rounded-xl overflow-hidden mb-4">
-                    <Image
-                      src={item.image}
-                      alt={`NFT by ${item.author}`}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  </div>
-
-                  {/* Code Preview */}
-                  <div className="bg-black/40 p-4 rounded-lg border border-[#00FFD1]/10 backdrop-blur-sm">
-                    <pre className="text-[#00FFD1] text-sm overflow-x-auto">
-                      <code>{item.prompt}</code>
-                    </pre>
-                  </div>
-
-                  {/* Author Info */}
-                  <div className="mt-4 flex items-center gap-3">
-                    <div>
-                      <h3 className="text-white font-medium">{item.author}</h3>
-                      <p className="text-[#00FFD1] text-sm">{item.role}</p>
-                    </div>
-                  </div>
-
-                  {/* Rating Stars */}
-                  <div className="absolute top-4 right-4 flex gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <motion.span
-                        key={i}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.1 * i }}
-                        className="text-[#00FFD1]"
-                      >
-                        ★
-                      </motion.span>
-                    ))}
-                  </div>
-                </motion.div>
+              ].map((nft) => (
+                <NFTCard key={nft.wallet} {...nft} />
               ))}
             </div>
           </div>
