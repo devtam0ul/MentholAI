@@ -488,52 +488,36 @@ export default function Home() {
                   </ul>
                 </motion.div>
 
-                {/* Move Buy button here with adjusted positioning */}
-                <Link
-                  href="/buy"
-                  className="mt-24 relative group inline-block w-full"
-                >
-                  {/* Center container */}
-                  <div className="flex justify-center">
-                    {/* Main button with dark theme - removed bg-black/80 */}
-                    <div className="relative backdrop-blur-sm px-8 py-3 rounded-full font-semibold text-[#00FFD1] text-base hover:bg-black/20 transition-all duration-300 flex items-center justify-center gap-2 z-20 border border-[#00FFD1]/50">
-                      BUY $MENTHOL 
-                      <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
-                    </div>
-
-                    {/* Glow effects */}
-                    <div className="absolute inset-0 rounded-full border border-[#00FFD1]/50" />
-                    <div className="absolute -inset-0.5 rounded-full border border-[#00FFD1]/30 blur-[1px]" />
-                    <div className="absolute -inset-1 rounded-full border border-[#00FFD1]/10 blur-[2px]" />
-
+                {/* Original Simple Buttons */}
+                <div className="flex gap-4 justify-center mt-12">
+                  {/* BUY $MENTHOL Button */}
+                  <Link href="/buy">
                     <motion.div
-                      className="absolute -inset-2 bg-[#00FFD1]/10 rounded-full blur-xl"
-                      animate={{
-                        scale: [1, 1.1, 1],
-                        opacity: [0.1, 0.3, 0.1]
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    />
+                      className="relative px-12 py-3 bg-black/40 rounded-lg backdrop-blur-sm
+                                border border-[#00FFD1]/20 hover:bg-black/60 transition-colors"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <span className="text-[#00FFD1] font-medium">
+                        BUY $MENTHOL
+                      </span>
+                    </motion.div>
+                  </Link>
 
+                  {/* Try Menthol Button */}
+                  <Link href="/try">
                     <motion.div
-                      className="absolute -inset-4 bg-[#00FFD1]/5 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      animate={{
-                        scale: [1, 1.2, 1],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    />
-
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#00FFD1]/0 via-[#00FFD1]/10 to-[#00FFD1]/0 rounded-full opacity-0 group-hover:opacity-100 blur-xl transition-all duration-300" />
-                  </div>
-                </Link>
+                      className="relative px-12 py-3 bg-black/40 rounded-lg backdrop-blur-sm
+                                border border-[#00FFD1]/20 hover:bg-black/60 transition-colors"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <span className="text-[#00FFD1] font-medium">
+                        Try Menthol
+                      </span>
+                    </motion.div>
+                  </Link>
+                </div>
               </motion.div>
 
               {/* Right side - Chart */}
