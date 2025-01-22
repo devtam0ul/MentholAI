@@ -11,6 +11,7 @@ import { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useTypewriter } from '@/hooks/useTypewriter'
 import { Poppins } from 'next/font/google'
+import { LiveMintFeed } from './LiveMintFeed'
 
 const poppins = Poppins({
   weight: ['900'],  // Extra Bold weight
@@ -95,10 +96,10 @@ export function HeroSection() {
   }
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen p-4 md:p-24 overflow-visible">
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black/50" />
       
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#00FFD1]/10 via-transparent to-transparent animate-pulse" style={{ animationDuration: '3s' }} />
         <div className="absolute inset-0">
           {[...Array(50)].map((_, i) => (
@@ -163,14 +164,9 @@ export function HeroSection() {
             />
           ))}
         </div>
-        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-[#00FFD1]/5 blur-[120px] rounded-full animate-orbit-1" />
-        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-[#00FFD1]/5 blur-[120px] rounded-full animate-orbit-2" />
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 animate-float" />
-      </div>
-
-      {/* Stats bar - refined styling */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 flex justify-center z-30">
-        <EnhancedStatsBar />
+        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-[#00FFD1]/5 blur-[120px] rounded-full" />
+        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-[#00FFD1]/5 blur-[120px] rounded-full" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
       </div>
 
       {/* Tech indicator - moved to top left */}
@@ -191,14 +187,16 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Main content */}
+      {/* Add LiveMintFeed back on the left side */}
+      <div className="fixed left-0 top-0 h-full z-50">
+        <LiveMintFeed />
+      </div>
+
+      {/* Main content with mascot and chat bubble */}
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-center space-y-8 max-w-4xl mx-auto relative z-10 mt-16"
+        className="text-center space-y-8 max-w-4xl mx-auto relative z-50 mt-[80px] md:mt-[100px]"
       >
-        <div className="relative inline-flex items-center justify-center gap-2 flex-col md:flex-row">
+        <div className="relative inline-flex items-center justify-center gap-2">
           <motion.h1 
             className="relative"
             initial={{ opacity: 0, x: -20 }}
@@ -211,7 +209,7 @@ export function HeroSection() {
             {/* Middle layer glow with animation */}
             <motion.div
               className="absolute -inset-6 bg-[#00FFD1]/10 blur-[50px]"
-              animate={{
+              animate={{ 
                 opacity: [0.5, 0.8, 0.5],
                 scale: [1, 1.05, 1]
               }}
@@ -243,144 +241,51 @@ export function HeroSection() {
               </span>
             </span>
           </motion.h1>
-          
-          <motion.div
-            initial={{ opacity: 1, scale: 0.8 }}
-            animate={{ 
-              opacity: 1,
-              scale: 1,
-            }}
-            transition={{ 
-              duration: 0.6,
-              ease: "easeOut"
-            }}
-            className="relative w-24 h-24 md:w-32 md:h-32 flex items-center justify-center mt-4 md:mt-0"
-            style={{ 
-              zIndex: 30,
-              mixBlendMode: 'normal',
-              isolation: 'isolate'
-            }}
-          >
-            {/* Enhanced glow effect */}
-            <motion.div 
-              className="absolute inset-0 bg-[#00FFD1]/10 rounded-full blur-xl"
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.5, 0.7, 0.5]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            
-            {/* Mascot image with speech bubble */}
-            <div className="relative">
-              {/* Speech bubble */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1, duration: 0.5 }}
-                className="absolute right-[-150px] top-6 bg-black/40 backdrop-blur-sm border border-[#00FFD1]/50 rounded-lg px-3 py-2"
-                style={{
-                  width: '160px',
-                  minHeight: '40px'
-                }}
-              >
-                {/* Speech bubble pointer - now points from the left side */}
-                <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 
-                  border-t-[6px] border-t-transparent 
-                  border-r-[6px] border-r-[#00FFD1]/50
-                  border-b-[6px] border-b-transparent"
-                />
-                
-                <motion.p 
-                  className="text-white text-[10px]"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1.2, duration: 0.5 }}
-                >
-                  {typedText}
-                  <motion.span
-                    animate={{ opacity: [1, 0] }}
-                    transition={{ duration: 0.8, repeat: Infinity }}
-                    className="inline-block ml-[1px]"
-                  >
-                    |
-                  </motion.span>
-                </motion.p>
-              </motion.div>
 
-              {/* Existing mascot animation */}
-              <motion.div
-                animate={{ 
-                  y: [0, -5, 0],
-                  rotate: [-3, 3, -3],
-                }}
-                transition={{
-                  duration: 4,
-                  ease: "easeInOut",
-                  repeat: Infinity,
-                  repeatType: "reverse"
-                }}
-                className="relative z-50"
-                style={{ isolation: 'isolate' }}
-              >
-                <Image
-                  src="/menthol-avatar.png"
-                  alt="Menthol Mascot"
-                  width={120}
-                  height={120}
-                  className="relative z-50"
-                  style={{ 
-                    filter: 'drop-shadow(0 0 10px rgba(0, 255, 209, 0.3))',
-                    opacity: 1,
-                    mixBlendMode: 'normal',
-                    isolation: 'isolate'
-                  }}
-                  priority
-                />
-              </motion.div>
+          {/* Mascot and chat bubble */}
+          <div className="relative">
+            <Image
+              src="/mascot.png"
+              alt="Menthol Mascot"
+              width={72}
+              height={72}
+              className="animate-float"
+            />
+            <div className="absolute -right-4 -top-4 bg-black/80 text-white text-sm px-3 py-1 rounded-lg">
+              Let's create!
             </div>
-          </motion.div>
+          </div>
         </div>
-        
-        <div className="relative h-[72px]">
-          <AnimatePresence mode="wait">
-            <motion.h2
-              key={currentIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="text-3xl md:text-5xl font-bold mb-8 tracking-tight leading-tight bg-gradient-to-r from-white via-white to-gray-400 text-transparent bg-clip-text px-4 md:px-0"
-            >
-              {words[currentIndex]}
-            </motion.h2>
-          </AnimatePresence>
-        </div>
-        
-        <p className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto mb-8 md:mb-16 leading-relaxed font-light animate-fade-in [animation-delay:400ms] px-4 md:px-0">
-          Menthol integrates machine learning with decentralized networks, empowering creators with powerful tools for artistic expression and global collaboration.
+
+        {/* Subtitle */}
+        <h2 className="text-4xl md:text-6xl font-bold text-white">
+          Quantum-Powered NFT Platform
+        </h2>
+
+        {/* Description */}
+        <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+          Menthol integrates machine learning with decentralized networks, empowering 
+          creators with powerful tools for artistic expression and global collaboration.
         </p>
-        
-        <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center animate-fade-in [animation-delay:600ms] w-full md:w-auto px-4 md:px-0">
+
+        {/* Buttons */}
+        <div className="flex gap-4 justify-center mt-12">
           {/* BUY $MENTHOL Button */}
           <Link href="/buy" className="group relative w-full md:w-auto">
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00FFD1]/0 via-[#00FFD1]/50 to-[#00FFD1]/0 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-300" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-white/0 via-white/50 to-white/0 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-300" />
               
-              <div className="relative px-8 py-4 bg-black/40 backdrop-blur-sm border border-[#00FFD1]/50 rounded-lg text-[#00FFD1] font-bold text-lg text-center">
+              <div className="relative px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white font-bold text-lg text-center hover:bg-white/20 transition-all">
                 BUY $MENTHOL
-                <div className="absolute inset-0 rounded-lg bg-[#00FFD1]/5 opacity-0 group-hover:opacity-100 transition duration-300" />
+                <div className="absolute inset-0 rounded-lg bg-white/5 opacity-0 group-hover:opacity-100 transition duration-300" />
               </div>
             </motion.div>
           </Link>
 
-          {/* Try Menthol Button - Updated with GitHub link */}
+          {/* Try Menthol Button */}
           <Link 
             href="https://github.com/mentholai/menthol"
             target="_blank"
@@ -391,15 +296,11 @@ export function HeroSection() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
-              {/* Neon border effect */}
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00FFD1]/0 via-[#00FFD1]/50 to-[#00FFD1]/0 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-300" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-white/0 via-white/50 to-white/0 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-300" />
               
-              {/* Main button */}
-              <div className="relative px-8 py-4 bg-black/40 backdrop-blur-sm border border-[#00FFD1]/50 rounded-lg text-[#00FFD1] font-bold text-lg text-center">
+              <div className="relative px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white font-bold text-lg text-center hover:bg-white/20 transition-all">
                 Try Menthol
-                
-                {/* Inner glow */}
-                <div className="absolute inset-0 rounded-lg bg-[#00FFD1]/5 opacity-0 group-hover:opacity-100 transition duration-300" />
+                <div className="absolute inset-0 rounded-lg bg-white/5 opacity-0 group-hover:opacity-100 transition duration-300" />
               </div>
             </motion.div>
           </Link>
@@ -539,6 +440,11 @@ export function HeroSection() {
           strokeWidth={1.5}
         />
       </motion.div>
+
+      {/* Keep only ONE instance of EnhancedStatsBar here */}
+      <div className="absolute top-[120px] md:top-[140px] left-1/2 -translate-x-1/2 w-full z-10">
+        <EnhancedStatsBar />
+      </div>
     </div>
   )
 } 

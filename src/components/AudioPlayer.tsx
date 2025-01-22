@@ -13,15 +13,40 @@ export function AudioPlayer() {
     setMounted(true)
     if (typeof window !== 'undefined') {
       try {
-        audioRef.current = new Audio('/music/background.mp3')
-        audioRef.current.loop = true
-        audioRef.current.volume = 0.1
+        const audio = new Audio('/music/background.mp3')
+        audio.loop = true
+        audio.volume = 0.1
         
-        // Add error handling
-        audioRef.current.addEventListener('error', (e) => {
-          console.error('Audio error:', e)
-          setError('Failed to load audio')
+        // Add specific error handling
+        audio.addEventListener('error', (e) => {
+          const error = e.target as HTMLAudioElement
+          let errorMessage = 'Failed to load audio'
+          
+          switch (error.error?.code) {
+            case MediaError.MEDIA_ERR_ABORTED:
+              errorMessage = 'Audio playback aborted'
+              break
+            case MediaError.MEDIA_ERR_NETWORK:
+              errorMessage = 'Network error'
+              break
+            case MediaError.MEDIA_ERR_DECODE:
+              errorMessage = 'Audio decode error'
+              break
+            case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
+              errorMessage = 'Audio format not supported'
+              break
+          }
+          
+          console.error('Audio error:', errorMessage)
+          setError(errorMessage)
         })
+
+        // Add loaded data handler
+        audio.addEventListener('loadeddata', () => {
+          setError(null) // Clear any previous errors
+        })
+
+        audioRef.current = audio
       } catch (err) {
         console.error('Audio initialization error:', err)
         setError('Failed to initialize audio')
@@ -31,24 +56,33 @@ export function AudioPlayer() {
     return () => {
       if (audioRef.current) {
         audioRef.current.pause()
+        audioRef.current.remove() // Properly cleanup the audio element
         audioRef.current = null
       }
     }
   }, [])
 
   const togglePlay = async () => {
-    if (audioRef.current) {
-      try {
-        if (isPlaying) {
-          await audioRef.current.pause()
-        } else {
-          await audioRef.current.play()
+    if (!audioRef.current) return
+
+    try {
+      if (isPlaying) {
+        await audioRef.current.pause()
+      } else {
+        // Reset the audio if it ended
+        if (audioRef.current.ended) {
+          audioRef.current.currentTime = 0
         }
-        setIsPlaying(!isPlaying)
-      } catch (err) {
-        console.error('Playback error:', err)
-        setError('Failed to play audio')
+        const playPromise = audioRef.current.play()
+        if (playPromise !== undefined) {
+          await playPromise
+        }
       }
+      setIsPlaying(!isPlaying)
+      setError(null) // Clear any previous errors on successful playback
+    } catch (err) {
+      console.error('Playback error:', err)
+      setError('Click to play audio')
     }
   }
 
@@ -57,33 +91,36 @@ export function AudioPlayer() {
   return (
     <motion.button
       onClick={togglePlay}
-      className="fixed bottom-6 right-6 z-[100] p-4 rounded-full bg-black/40 backdrop-blur-md border-2 border-[#00FFD1]/30 hover:bg-black/60 transition-all duration-300 group shadow-lg shadow-[#00FFD1]/10"
+      className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[100] p-3 md:p-4 rounded-full bg-black/40 backdrop-blur-md 
+                 border-2 border-white/30 hover:bg-black/60 transition-all duration-300 
+                 group shadow-lg shadow-white/10"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
+      title={error || (isPlaying ? 'Pause' : 'Play')}
     >
-      <div className="relative w-8 h-8 flex items-center justify-center">
-        {error ? (
-          <div className="text-red-500 text-xs absolute -top-8 whitespace-nowrap">
+      <div className="relative w-6 h-6 md:w-8 md:h-8 flex items-center justify-center">
+        {error && (
+          <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-red-500 text-xs whitespace-nowrap bg-black/80 px-2 py-1 rounded">
             {error}
           </div>
-        ) : null}
+        )}
         
         {/* Speaker icon */}
         <motion.div
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
-          className="text-[#00FFD1]"
+          className="text-white"
         >
           {isPlaying ? (
-            <Volume2 className="w-6 h-6" />
+            <Volume2 className="w-5 h-5 md:w-6 md:h-6" />
           ) : (
-            <VolumeX className="w-6 h-6" />
+            <VolumeX className="w-5 h-5 md:w-6 md:h-6" />
           )}
         </motion.div>
 
-        {/* Enhanced glow effect */}
+        {/* Glow effect */}
         <motion.div
-          className="absolute inset-0 bg-[#00FFD1]/20 blur-xl rounded-full"
+          className="absolute inset-0 bg-white/20 blur-[8px] md:blur-xl rounded-full"
           animate={isPlaying ? {
             scale: [1, 1.2, 1],
             opacity: [0.2, 0.4, 0.2]

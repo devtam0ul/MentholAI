@@ -16,8 +16,6 @@ import { NFTCard } from '@/components/NFTCard'
 import { AudioPlayer } from '@/components/AudioPlayer'
 import { Sparkles, Globe } from 'lucide-react'
 import { NFTShowcase } from '@/components/NFTShowcase'
-import { LiveMintFeed } from '@/components/LiveMintFeed'
-import { EnhancedStatsBar } from '@/components/EnhancedStatsBar'
 
 const FEATURES = [
   {
@@ -118,12 +116,7 @@ export default function Home() {
   return (
     <main className="relative">
       <ClientLayout>
-        <LiveMintFeed />
-        <div className="absolute top-[80px] md:top-[100px] left-1/2 -translate-x-1/2 w-full z-10">
-          <EnhancedStatsBar />
-        </div>
         <Header />
-
         <HeroSection />
 
         {/* Revolutionary Features Section */}

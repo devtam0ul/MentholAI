@@ -19,6 +19,7 @@ module.exports = {
         'particle-3': 'particle3 12s linear infinite',
         'neon-glow': 'neon-glow 2.5s ease-in-out infinite alternate',
         'neon-buzz': 'neon-buzz 0.05s ease-in-out infinite',
+        'spotlight': 'spotlight 5s ease-in-out infinite'
       },
       keyframes: {
         orbit1: {
@@ -80,6 +81,10 @@ module.exports = {
             opacity: 0.95,
           },
         },
+        spotlight: {
+          '0%': { transform: 'translateX(-150%) skewX(-45deg)' },
+          '100%': { transform: 'translateX(150%) skewX(-45deg)' }
+        }
       },
       backgroundImage: {
         'gradient-conic': 'conic-gradient(var(--tw-gradient-stops))',

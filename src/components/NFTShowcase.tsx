@@ -38,10 +38,10 @@ export function NFTShowcase() {
   }
 
   return (
-    <section className="py-16 px-6 bg-[#004D40]/10 relative">
-      <div className="max-w-6xl mx-auto relative">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-3">
+    <section className="py-8 sm:py-16 px-4 sm:px-6 bg-[#004D40]/10 relative">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-3">
             <span className="text-[#00FFD1]">Community</span> Generations
           </h2>
           <p className="text-gray-400 text-lg">
@@ -49,12 +49,14 @@ export function NFTShowcase() {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
           {nftData.map((nft) => (
-            <NFTCard
-              key={nft.wallet}
-              {...nft}
-            />
+            <div className="p-3 sm:p-4">
+              <NFTCard
+                key={nft.wallet}
+                {...nft}
+              />
+            </div>
           ))}
         </div>
       </div>
