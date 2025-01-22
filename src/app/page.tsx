@@ -17,6 +17,7 @@ import { AudioPlayer } from '@/components/AudioPlayer'
 import { Sparkles, Globe } from 'lucide-react'
 import { NFTShowcase } from '@/components/NFTShowcase'
 import { LiveMintFeed } from '@/components/LiveMintFeed'
+import { EnhancedStatsBar } from '@/components/EnhancedStatsBar'
 
 const FEATURES = [
   {
@@ -118,6 +119,9 @@ export default function Home() {
     <main className="relative">
       <ClientLayout>
         <LiveMintFeed />
+        <div className="absolute top-[80px] md:top-[100px] left-1/2 -translate-x-1/2 w-full z-10">
+          <EnhancedStatsBar />
+        </div>
         <Header />
 
         <HeroSection />
@@ -357,7 +361,7 @@ export default function Home() {
                   <Link href="/buy">
                     <motion.div
                       className="relative px-12 py-3 bg-black/40 rounded-lg backdrop-blur-sm
-                                border border-[#00FFD1]/20 hover:bg-black/60 transition-colors"
+                                 border border-[#00FFD1]/20 hover:bg-black/60 transition-colors"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -368,16 +372,28 @@ export default function Home() {
                   </Link>
 
                   {/* Try Menthol Button */}
-                  <Link href="/try">
+                  <Link 
+                    href="https://github.com/mentholai/menthol"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <motion.div
                       className="relative px-12 py-3 bg-black/40 rounded-lg backdrop-blur-sm
-                                border border-[#00FFD1]/20 hover:bg-black/60 transition-colors"
+                                 border border-[#00FFD1]/20 hover:bg-black/60 transition-colors
+                                 group"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <span className="text-[#00FFD1] font-medium">
+                      <span className="text-[#00FFD1] font-medium group-hover:opacity-90">
                         Try Menthol
                       </span>
+                      
+                      {/* Add hover tooltip */}
+                      <div className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 
+                                    group-hover:opacity-100 transition-opacity bg-black/80 
+                                    text-xs text-white px-2 py-1 rounded whitespace-nowrap">
+                        Connect to Menthol Platform
+                      </div>
                     </motion.div>
                   </Link>
                 </div>
