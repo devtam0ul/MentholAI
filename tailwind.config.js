@@ -85,6 +85,25 @@ module.exports = {
         'gradient-conic': 'conic-gradient(var(--tw-gradient-stops))',
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
+      screens: {
+        'xs': '375px',  // iPhone SE
+        'sm': '640px',  // Smaller tablets
+        'md': '768px',  // Tablets
+        'lg': '1024px', // Laptops
+        'xl': '1280px', // Desktops
+        // Device-specific breakpoints
+        'iphone-se': '375px',
+        'iphone-xr': '414px',
+        'iphone-12': '390px',
+        'fold': '280px', // Galaxy Fold
+        'landscape': { 'raw': '(orientation: landscape)' }
+      },
+      spacing: {
+        'safe-top': 'env(safe-area-inset-top)',
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+        'safe-left': 'env(safe-area-inset-left)',
+        'safe-right': 'env(safe-area-inset-right)',
+      }
     },
   },
   plugins: [],

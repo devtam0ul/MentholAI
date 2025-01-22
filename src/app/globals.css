@@ -41,6 +41,21 @@ body {
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
+
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Improved touch targets for mobile */
+  @media (max-width: 768px) {
+    .touch-target {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
 }
 
 @keyframes glow {
@@ -87,4 +102,93 @@ body {
   writing-mode: vertical-rl;
   text-orientation: mixed;
   transform: rotate(180deg);
+}
+
+/* Add meta viewport tag to your HTML head */
+/* <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"> */
+
+/* Optimize mobile scrolling */
+@supports (-webkit-overflow-scrolling: touch) {
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Prevent text size adjustment on orientation change */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Optimize touch targets */
+@media (max-width: 768px) {
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  input, select {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+}
+
+/* Add smooth momentum scrolling */
+.scroll-container {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+/* Prevent pull-to-refresh but keep smooth scrolling */
+body {
+  overscroll-behavior-y: none;
+  overflow-y: auto;
+}
+
+/* Better tap highlights for mobile */
+.touch-active {
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+
+/* Dynamic container padding */
+.container {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+/* Notch area handling */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .has-safe-area {
+    --safe-area-inset-top: env(safe-area-inset-top);
+    padding-top: var(--safe-area-inset-top);
+  }
+}
+
+/* Better mobile landscape handling */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .landscape-optimize {
+    height: auto;
+    min-height: 100vh;
+  }
+}
+
+/* Prevent content shift on mobile */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Improve mobile tap targets */
+@media (max-width: 768px) {
+  .interactive {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  /* Prevent text selection during touch interactions */
+  .no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
 } 
