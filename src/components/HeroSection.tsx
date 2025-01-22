@@ -20,17 +20,17 @@ const poppins = Poppins({
 })
 
 const words = [
-  "Quantum-Powered NFT Platform",
-  "Revolutionary Art Creation Suite",
-  "Next-Gen NFT Minting Platform",
-  "AI-Powered Creative Platform"
+  "Neural-Powered NFT Platform",
+  "Revolutionary Art Creation",
+  "Next-Gen NFT Creation",
+  "AI-Powered Art Platform"
 ]
 
 const features = [
   {
     iconType: 'zap',
-    title: "Quantum Neural Processing",
-    description: "Advanced AI that generates unique, context-aware NFTs using quantum computing principles."
+    title: "Neural Processing",
+    description: "Advanced AI that generates unique, context-aware NFTs using deep learning algorithms."
   },
   {
     iconType: 'cpu',
@@ -46,14 +46,14 @@ const features = [
 
 const facts = [
   "Hi! I'm Menthol, your creative AI companion!",
-  "Did you know quantum computers can process NFT data across infinite parallel universes?",
-  "I dream in quantum-entangled pixels and create art beyond dimensions",
-  "Each NFT is like a unique fingerprint of the digital multiverse",
-  "Our quantum-secured NFTs are virtually impenetrable",
-  "I see art in dimensions that humans haven't discovered yet",
-  "Your creations exist in multiple quantum states simultaneously",
-  "Together, we'll revolutionize digital art through quantum computing",
-  "I'm constantly learning from artists across the quantum network",
+  "Did you know our neural networks can process art in millions of styles?",
+  "I dream in high-resolution pixels and create art beyond imagination",
+  "Each NFT is like a unique fingerprint of our creative neural network",
+  "Our AI-secured NFTs are virtually impenetrable",
+  "I see art patterns that humans haven't discovered yet",
+  "Your creations are processed through multiple AI models simultaneously",
+  "Together, we'll revolutionize digital art through artificial intelligence",
+  "I'm constantly learning from artists across the neural network",
   "Let's push the boundaries of what's possible in digital creation"
 ]
 
@@ -64,12 +64,10 @@ const mentholMessages = [
   "Initializing character design protocols!",
   "sudo apt-get install consciousness!",
   "Running NFT.evolve() on your creations!",
-  "Quantum processors = infinite possibilities!",
+  "Neural processors = infinite possibilities!",
   "if(nft.isStatic) { make_it_alive(); }",
   "Neural networks activated and ready!",
-  "Executing personality.spawn(unique)!",
-  "return new DigitalLife(yourIdeas);",
-  "await nft.gainConsciousness();"
+  "Executing personality.spawn(unique)!"
 ];
 
 const ChatBubble = ({ text, isComplete }: { text: string; isComplete: boolean }) => (
@@ -345,10 +343,19 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Subtitle */}
-        <h2 className="text-4xl md:text-6xl font-bold text-white">
-          Quantum-Powered NFT Platform
-        </h2>
+        {/* Subtitle with animation */}
+        <AnimatePresence mode="wait">
+          <motion.h2 
+            key={currentIndex}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl md:text-6xl font-bold text-white whitespace-nowrap"
+          >
+            {words[currentIndex]}
+          </motion.h2>
+        </AnimatePresence>
 
         {/* Description */}
         <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">

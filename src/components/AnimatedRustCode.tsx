@@ -2,11 +2,11 @@
 import { motion, useAnimationControls } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
-const CODE = `// Quantum NFT Generation
+const CODE = `// Neural NFT Generation
 async fn generate_nft(prompt: &str) -> NFT {
     let thought_vector = neural_processor.process_input(prompt);
-    let quantum_vector = quantum_processor.transform(thought_vector);
-    let image = image_generator.create(quantum_vector);
+    let neural_vector = neural_processor.transform(thought_vector);
+    let image = image_generator.create(neural_vector);
     
     NFT {
         image,
@@ -43,7 +43,7 @@ export function AnimatedRustCode() {
           <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
           <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
         </div>
-        <span className="text-[#00FFD1]/50 text-sm font-mono ml-2">quantum_nft_generation.rs</span>
+        <span className="text-[#00FFD1]/50 text-sm font-mono ml-2">neural_nft_generation.rs</span>
       </div>
       
       {/* Code content */}

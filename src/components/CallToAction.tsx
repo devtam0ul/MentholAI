@@ -15,7 +15,7 @@ export function CallToAction() {
             textShadow: '0 0 10px rgba(255, 255, 255, 0.3)'
           }}
         >
-          Join the Quantum Creative Revolution
+          Join the Neural Creative Revolution
         </motion.h2>
 
         {/* Subtitle with white text */}

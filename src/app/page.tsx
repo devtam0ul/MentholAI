@@ -21,16 +21,16 @@ import { EnhancedStatsBar } from '@/components/EnhancedStatsBar'
 
 const FEATURES = [
   {
-    title: "Quantum Neural Processing",
-    description: "Harness the power of quantum computing to generate unique, context-aware NFTs. Our advanced neural networks analyze patterns across multiple dimensions, ensuring each creation is truly one-of-a-kind and deeply meaningful to its owner."
+    title: "Neural Processing",
+    description: "Advanced AI that generates unique, context-aware NFTs using deep learning algorithms."
   },
   {
     title: "AI-Driven Creativity",
-    description: "Experience the next evolution in digital art creation. Our sophisticated AI algorithms transform your text prompts into stunning visual masterpieces, combining elements from millions of data points to generate unprecedented artistic expressions."
+    description: "Intelligent algorithms that transform text prompts into stunning digital artworks."
   },
   {
     title: "Blockchain Integration",
-    description: "Seamlessly mint and verify your digital assets on the Solana blockchain. Enjoy lightning-fast transactions, minimal environmental impact, and bulletproof security while maintaining full ownership of your unique creations."
+    description: "Seamless Solana blockchain minting and verification of your unique digital assets."
   }
 ]
 
@@ -143,7 +143,7 @@ export default function Home() {
                 Revolutionary Features
               </h2>
               <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                Experience the convergence of quantum computing, artificial intelligence, and blockchain technology 
+                Experience the convergence of advanced AI, machine learning, and blockchain technology 
                 as we revolutionize the future of digital art creation and ownership.
               </p>
             </motion.div>
@@ -443,45 +443,38 @@ export default function Home() {
                 </h2>
               </div>
 
-              {/* Enhanced description with animated reveal */}
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-                className="max-w-4xl mx-auto space-y-4 mt-8"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
-                  <motion.div 
-                    className="p-3 rounded-lg bg-black/20 border border-[#00FFD1]/10"
-                    whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.3)' }}
-                  >
-                    <h3 className="text-[#00FFD1] font-semibold mb-1 text-sm">Rust-Powered Core</h3>
-                    <p className="text-gray-400 text-xs">
-                      Built with blazing-fast, memory-safe Rust for maximum performance and security
-                    </p>
-                  </motion.div>
-                  
-                  <motion.div 
-                    className="p-3 rounded-lg bg-black/20 border border-[#00FFD1]/10"
-                    whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.3)' }}
-                  >
-                    <h3 className="text-[#00FFD1] font-semibold mb-1 text-sm">Quantum Computing</h3>
-                    <p className="text-gray-400 text-xs">
-                      Leveraging quantum algorithms to unlock limitless creative possibilities
-                    </p>
-                  </motion.div>
-                  
-                  <motion.div 
-                    className="p-3 rounded-lg bg-black/20 border border-[#00FFD1]/10"
-                    whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.3)' }}
-                  >
-                    <h3 className="text-[#00FFD1] font-semibold mb-1 text-sm">AI Models</h3>
-                    <p className="text-gray-400 text-xs">
-                      Neural networks trained on vast datasets for next-gen art creation
-                    </p>
-                  </motion.div>
-                </div>
-              </motion.div>
+              {/* Technology cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-center mt-8 max-w-4xl mx-auto">
+                <motion.div 
+                  className="p-3 rounded-lg bg-black/20 border border-[#00FFD1]/10 max-w-[280px] mx-auto w-full"
+                  whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.3)' }}
+                >
+                  <h3 className="text-[#00FFD1] font-semibold mb-2 text-sm">Rust-Powered Core</h3>
+                  <p className="text-white/80 text-xs leading-relaxed">
+                    High-performance system built with Rust, ensuring lightning-fast processing and military-grade security
+                  </p>
+                </motion.div>
+                
+                <motion.div 
+                  className="p-3 rounded-lg bg-black/20 border border-[#00FFD1]/10 max-w-[280px] mx-auto w-full"
+                  whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.3)' }}
+                >
+                  <h3 className="text-[#00FFD1] font-semibold mb-2 text-sm">Neural Processing</h3>
+                  <p className="text-white/80 text-xs leading-relaxed">
+                    State-of-the-art neural networks process millions of parameters to understand and generate unique art
+                  </p>
+                </motion.div>
+                
+                <motion.div 
+                  className="p-3 rounded-lg bg-black/20 border border-[#00FFD1]/10 max-w-[280px] mx-auto w-full"
+                  whileHover={{ scale: 1.02, borderColor: 'rgba(0, 255, 209, 0.3)' }}
+                >
+                  <h3 className="text-[#00FFD1] font-semibold mb-2 text-sm">AI Models</h3>
+                  <p className="text-white/80 text-xs leading-relaxed">
+                    Advanced AI models trained on curated artistic datasets, combining deep learning with creative algorithms
+                  </p>
+                </motion.div>
+              </div>
             </motion.div>
 
             {/* Code block with enhanced styling and avatar */}
@@ -592,15 +585,15 @@ export default function Home() {
     lighting: "volumetric",
     atmosphere: "cyber dystopian"
   },
-  enhancers: ["quantum", "highDetail", "stableDiffusion"],
+  enhancers: ["neural", "highDetail", "stableDiffusion"],
   seed: 1337,
-  quantum_params: {
-    entanglement_depth: 24,
-    superposition_layers: 8
+  neural_params: {
+    processing_depth: 24,
+    model_layers: 8
   }
 })`,
                   wallet: "0x7C3F...9Ae4",
-                  pseudoname: "QuantumSamurai",
+                  pseudoname: "NeuralSamurai",
                   rating: 5
                 },
                 {
@@ -612,7 +605,7 @@ export default function Home() {
     colors: ["cyan", "white"],
     environment: "cosmic void"
   },
-  quantum: true,
+  neural_enhance: true,
   dimensions: {
     space: 4,
     time: 1
@@ -622,7 +615,7 @@ export default function Home() {
     light_scattering: "volumetric",
     energy_flow: "dynamic"
   },
-  neural_params: {
+  ai_params: {
     creativity: 0.95,
     coherence: 0.85
   }
@@ -638,7 +631,7 @@ const result = await menthol.compose({
   subjects: ["human", "android"],
   style: "futuristic samurai",
   mergeParams: {
-    blendMode: "quantum",
+    blendMode: "neural",
     intensity: 0.8,
     harmony: 0.9
   },
@@ -647,10 +640,10 @@ const result = await menthol.compose({
     weapons: "energy katana",
     tech_level: "advanced"
   },
-  quantum_settings: {
-    superposition: true,
-    entanglement: "high",
-    wave_function: "custom"
+  ai_settings: {
+    multiprocessing: true,
+    enhancement: "high",
+    model_type: "custom"
   },
   neural_enhancement: {
     detail_boost: 1.2,
@@ -675,7 +668,8 @@ const result = await menthol.compose({
 
                   {/* Card */}
                   <motion.div
-                    className="relative z-10 rounded-xl overflow-hidden bg-black border border-[#00FFD1]/10 hover:border-[#00FFD1]/30 transition-all duration-300 w-full h-[500px] flex flex-col"
+                    className="relative z-10 rounded-xl overflow-hidden bg-black border border-[#00FFD1]/10 
+                                 hover:border-[#00FFD1]/30 transition-all duration-300 w-full h-[600px] flex flex-col"
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
