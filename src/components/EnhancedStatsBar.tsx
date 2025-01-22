@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 
 export function EnhancedStatsBar() {
   const [artistCount, setArtistCount] = useState(9899)
-  const [modelCount, setModelCount] = useState(100)
 
   useEffect(() => {
     // Increment artist count
@@ -50,7 +49,7 @@ export function EnhancedStatsBar() {
         {/* Divider Line */}
         <div className="h-8 w-px bg-gradient-to-b from-transparent via-[#00FFD1]/20 to-transparent" />
 
-        {/* AI Models Stats */}
+        {/* AI Models Stats - Updated to show INFINITE */}
         <div className="flex items-center gap-3">
           <div className="text-[#00FFD1]">
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -59,12 +58,11 @@ export function EnhancedStatsBar() {
           </div>
           <div>
             <motion.h3 
-              key={modelCount}
               className="text-white font-bold text-lg"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              {modelCount}M+
+              INFINITE
             </motion.h3>
             <p className="text-[#00FFD1] text-xs">AI Models</p>
           </div>

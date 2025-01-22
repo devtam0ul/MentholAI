@@ -108,7 +108,7 @@ const STATS = [
     label: "Global Artists",
   },
   {
-    value: "100M+",
+    value: "INFINITE",
     label: "AI Models",
   }
 ]
