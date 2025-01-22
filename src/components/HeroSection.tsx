@@ -9,6 +9,14 @@ import { AccessibleButton } from '@/components/AccessibleButton'
 import { FeatureCard } from './FeatureCard'
 import { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
+import { useTypewriter } from '@/hooks/useTypewriter'
+import { Poppins } from 'next/font/google'
+
+const poppins = Poppins({
+  weight: ['900'],  // Extra Bold weight
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 const words = [
   "Quantum-Powered NFT Platform",
@@ -35,10 +43,25 @@ const features = [
   }
 ] as const
 
+const facts = [
+  "Hi! I'm Menthol, your creative AI companion!",
+  "Did you know quantum computers can process NFT data across infinite parallel universes?",
+  "I dream in quantum-entangled pixels and create art beyond dimensions",
+  "Each NFT is like a unique fingerprint of the digital multiverse",
+  "Our quantum-secured NFTs are virtually impenetrable",
+  "I see art in dimensions that humans haven't discovered yet",
+  "Your creations exist in multiple quantum states simultaneously",
+  "Together, we'll revolutionize digital art through quantum computing",
+  "I'm constantly learning from artists across the quantum network",
+  "Let's push the boundaries of what's possible in digital creation"
+]
+
 export function HeroSection() {
   const [mounted, setMounted] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [dimensions, setDimensions] = useState({ width: '100%', height: '100%' })
+
+  const typedText = useTypewriter(facts, 40, 3000)
 
   useEffect(() => {
     setMounted(true)
@@ -205,9 +228,19 @@ export function HeroSection() {
             {/* Bright center glow */}
             <div className="absolute -inset-2 bg-[#00FFD1]/20 blur-xl" />
 
-            {/* Main text stays clean */}
-            <span className="relative block text-white text-6xl md:text-9xl font-extrabold tracking-tight leading-none">
-              Menthol
+            {/* Main text with white outline */}
+            <span className="relative block text-6xl md:text-9xl tracking-tight leading-none">
+              <span 
+                className={`relative text-black ${poppins.className} font-black`}
+                style={{
+                  textShadow: '0 0 10px rgba(255, 255, 255, 0.5)',
+                  WebkitTextStroke: '2px rgba(255, 255, 255, 0.8)',
+                  letterSpacing: '-0.02em',
+                  fontWeight: 900
+                }}
+              >
+                Menthol
+              </span>
             </span>
           </motion.h1>
           
@@ -242,36 +275,74 @@ export function HeroSection() {
               }}
             />
             
-            {/* Mascot image - with continuous animation */}
-            <motion.div
-              animate={{ 
-                y: [0, -5, 0],
-                rotate: [-3, 3, -3],
-              }}
-              transition={{
-                duration: 4,
-                ease: "easeInOut",
-                repeat: Infinity,
-                repeatType: "reverse"
-              }}
-              className="relative z-50"
-              style={{ isolation: 'isolate' }}
-            >
-              <Image
-                src="/menthol-avatar.png"
-                alt="Menthol Mascot"
-                width={120}
-                height={120}
-                className="relative z-50"
-                style={{ 
-                  filter: 'drop-shadow(0 0 10px rgba(0, 255, 209, 0.3))',
-                  opacity: 1,
-                  mixBlendMode: 'normal',
-                  isolation: 'isolate'
+            {/* Mascot image with speech bubble */}
+            <div className="relative">
+              {/* Speech bubble */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1, duration: 0.5 }}
+                className="absolute right-[-150px] top-6 bg-black/40 backdrop-blur-sm border border-[#00FFD1]/50 rounded-lg px-3 py-2"
+                style={{
+                  width: '160px',
+                  minHeight: '40px'
                 }}
-                priority
-              />
-            </motion.div>
+              >
+                {/* Speech bubble pointer - now points from the left side */}
+                <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 
+                  border-t-[6px] border-t-transparent 
+                  border-r-[6px] border-r-[#00FFD1]/50
+                  border-b-[6px] border-b-transparent"
+                />
+                
+                <motion.p 
+                  className="text-white text-[10px]"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.2, duration: 0.5 }}
+                >
+                  {typedText}
+                  <motion.span
+                    animate={{ opacity: [1, 0] }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
+                    className="inline-block ml-[1px]"
+                  >
+                    |
+                  </motion.span>
+                </motion.p>
+              </motion.div>
+
+              {/* Existing mascot animation */}
+              <motion.div
+                animate={{ 
+                  y: [0, -5, 0],
+                  rotate: [-3, 3, -3],
+                }}
+                transition={{
+                  duration: 4,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+                className="relative z-50"
+                style={{ isolation: 'isolate' }}
+              >
+                <Image
+                  src="/menthol-avatar.png"
+                  alt="Menthol Mascot"
+                  width={120}
+                  height={120}
+                  className="relative z-50"
+                  style={{ 
+                    filter: 'drop-shadow(0 0 10px rgba(0, 255, 209, 0.3))',
+                    opacity: 1,
+                    mixBlendMode: 'normal',
+                    isolation: 'isolate'
+                  }}
+                  priority
+                />
+              </motion.div>
+            </div>
           </motion.div>
         </div>
         

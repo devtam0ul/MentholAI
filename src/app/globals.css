@@ -80,4 +80,11 @@ body {
 .animate-border-flow {
   background-size: 200% 200%;
   animation: border-flow 3s ease infinite;
+}
+
+/* Add this to your existing CSS */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
 } 
