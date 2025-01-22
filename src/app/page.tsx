@@ -135,111 +135,83 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="text-center mb-16 relative"
             >
-              <motion.div className="flex items-center justify-center gap-4">
-                <motion.h2 
-                  className="text-6xl font-bold mb-6 tracking-tight"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <span className="bg-gradient-to-r from-[#00FFD1] to-white bg-clip-text text-transparent">
-                    Revolutionary
-                  </span>{" "}
-                  Features
-                </motion.h2>
-
-                {/* Menthol Avatar */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ 
-                    opacity: 1,
-                    scale: 1,
-                  }}
-                  transition={{ duration: 0.6 }}
-                  className="relative w-24 h-24 flex items-center justify-center"
-                >
-                  <motion.div
-                    animate={{ 
-                      y: [0, -5, 0],
-                      rotate: [-3, 3, -3],
-                    }}
-                    transition={{
-                      duration: 4,
-                      ease: "easeInOut",
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
-                  >
-                    <Image
-                      src="/menthol-avatar.png"
-                      alt="Menthol Mascot"
-                      width={96}
-                      height={96}
-                      className="relative z-50"
-                      style={{ 
-                        filter: 'drop-shadow(0 0 10px rgba(0, 255, 209, 0.3))'
-                      }}
-                      priority
-                    />
-                  </motion.div>
-                </motion.div>
-              </motion.div>
-
-              <motion.p 
-                className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
+              <h2 className="text-6xl font-bold mb-6 tracking-tight bg-gradient-to-r from-[#00FFD1] to-white bg-clip-text text-transparent">
+                Revolutionary Features
+              </h2>
+              <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
                 Experience the convergence of quantum computing, artificial intelligence, and blockchain technology 
                 as we revolutionize the future of digital art creation and ownership.
-              </motion.p>
+              </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-              {FEATURES.map((feature, index) => (
-                <motion.div 
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {FEATURE_CARDS.map((feature, index) => (
+                <motion.div
                   key={feature.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ y: -5, scale: 1.02 }}
-                  className="relative group h-full"
+                  whileHover={{ scale: 1.02 }}
+                  className="group relative"
                 >
-                  {/* Glowing background effect */}
+                  {/* Glow effect on hover */}
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00FFD1]/0 via-[#00FFD1]/10 to-[#00FFD1]/0 
-                                 rounded-xl blur opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                                 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
                   
-                  {/* Card content */}
                   <div className="relative bg-black/40 border border-[#00FFD1]/10 rounded-xl p-8 
                                  backdrop-blur-sm hover:bg-black/50 transition-all h-full flex flex-col">
+                    {/* Radar Effect */}
+                    <div className="absolute top-4 right-4 w-16 h-16">
+                      <div className="absolute inset-0 border border-[#00FFD1]/20 rounded-full">
+                        {/* Center dot */}
+                        <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-[#00FFD1]/60 rounded-full transform -translate-x-1/2 -translate-y-1/2" />
+                        
+                        {/* Rotating radar line - now connected to center */}
+                        <motion.div
+                          className="absolute top-1/2 left-1/2 h-[50%] origin-top"
+                          animate={{ rotate: 360 }}
+                          transition={{
+                            duration: 4,
+                            repeat: Infinity,
+                            ease: "linear"
+                          }}
+                          style={{ 
+                            width: '1px',
+                            background: 'linear-gradient(to bottom, #00FFD1 0%, transparent 100%)',
+                            transformOrigin: 'top center'
+                          }}
+                        />
+                        
+                        {/* Radar circles */}
+                        <motion.div
+                          className="absolute inset-0 border border-[#00FFD1]/10 rounded-full"
+                          animate={{ scale: [0, 1], opacity: [1, 0] }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "linear"
+                          }}
+                        />
+                      </div>
+                    </div>
+
                     {/* Icon with animation */}
                     <motion.div
-                      className="w-12 h-12 mb-6 text-[#00FFD1] shrink-0"
+                      className="w-12 h-12 mb-6 text-[#00FFD1]"
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       transition={{ type: "spring", stiffness: 400 }}
                     >
-                      {feature.title === "Quantum Neural Processing" ? (
-                        <Icons.Lightning className="w-full h-full" />
-                      ) : feature.title === "AI-Driven Creativity" ? (
-                        <Icons.Chip className="w-full h-full" />
-                      ) : (
-                        <Icons.Stack className="w-full h-full" />
-                      )}
+                      {feature.icon}
                     </motion.div>
 
-                    {/* Title with hover effect */}
-                    <motion.h3 
-                      className="text-2xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 
-                                 bg-clip-text text-transparent group-hover:from-[#00FFD1] group-hover:to-white
-                                 transition-all duration-300 shrink-0"
-                    >
+                    {/* Title */}
+                    <h3 className="text-2xl font-bold mb-4 text-white">
                       {feature.title}
-                    </motion.h3>
+                    </h3>
 
-                    {/* Description with code-writing effect */}
+                    {/* Description with typing effect */}
                     <motion.p 
-                      className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors flex-grow font-mono text-xs"
+                      className="text-gray-400 leading-relaxed font-mono text-sm"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.5, delay: index * 0.3 + 0.5 }}
@@ -254,7 +226,8 @@ export default function Home() {
                         }}
                         className="inline-block whitespace-pre-wrap"
                       >
-                        {`> ${feature.description}`}
+                        <span className="text-[#00FFD1]">&gt; </span>
+                        {feature.description}
                       </motion.span>
                       <motion.span
                         animate={{ opacity: [0, 1, 0] }}
@@ -267,120 +240,10 @@ export default function Home() {
                       />
                     </motion.p>
 
-                    {/* Decorative elements */}
-                    <div className="absolute top-4 right-4 w-20 h-20 border border-[#00FFD1]/5 rounded-full overflow-hidden group-hover:border-[#00FFD1]/20 transition-all duration-500">
-                      {/* Animated circular gradient */}
-                      <motion.div
-                        className="absolute inset-0"
-                        animate={{
-                          background: [
-                            "conic-gradient(from 0deg, rgba(0,255,209,0.05) 0%, transparent 60%)",
-                            "conic-gradient(from 360deg, rgba(0,255,209,0.05) 0%, transparent 60%)"
-                          ],
-                          rotate: [0, 360]
-                        }}
-                        transition={{
-                          duration: 8,
-                          repeat: Infinity,
-                          ease: "linear"
-                        }}
-                      />
-                      
-                      {/* Pulsing dot */}
-                      <motion.div
-                        className="absolute top-1/2 left-1/2 w-1 h-1 bg-[#00FFD1]/50 rounded-full"
-                        animate={{
-                          scale: [1, 1.5, 1],
-                          opacity: [0.3, 0.6, 0.3],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                        style={{
-                          transform: 'translate(-50%, -50%)'
-                        }}
-                      />
-                    </div>
-
-                    <div className="absolute bottom-4 left-4 w-16 h-16 border border-[#00FFD1]/5 rounded-full overflow-hidden group-hover:border-[#00FFD1]/20 transition-all duration-500">
-                      {/* Scanning line effect */}
-                      <motion.div
-                        className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-[#00FFD1]/20 to-transparent"
-                        animate={{
-                          top: ["-10%", "110%"]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "linear"
-                        }}
-                      />
-                      
-                      {/* Rotating segments */}
-                      <motion.div
-                        className="absolute inset-0"
-                        animate={{ rotate: 360 }}
-                        transition={{
-                          duration: 10,
-                          repeat: Infinity,
-                          ease: "linear"
-                        }}
-                      >
-                        {[...Array(4)].map((_, i) => (
-                          <div
-                            key={i}
-                            className="absolute top-0 left-1/2 h-1/2 w-[1px] bg-[#00FFD1]/10 origin-bottom"
-                            style={{
-                              transform: `rotate(${i * 90}deg)`
-                            }}
-                          />
-                        ))}
-                      </motion.div>
-                    </div>
+                    {/* Bottom highlight */}
+                    <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#00FFD1]/20 to-transparent" />
                   </div>
-
-                  {/* Particle effects on hover */}
-                  <motion.div
-                    className="absolute -inset-4 pointer-events-none"
-                    animate={{
-                      background: [
-                        "radial-gradient(circle at center, rgba(0,255,209,0) 0%, rgba(0,255,209,0) 100%)",
-                        "radial-gradient(circle at center, rgba(0,255,209,0.1) 0%, rgba(0,255,209,0) 100%)",
-                        "radial-gradient(circle at center, rgba(0,255,209,0) 0%, rgba(0,255,209,0) 100%)"
-                      ]
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
-                  />
                 </motion.div>
-              ))}
-            </div>
-
-            {/* Interactive floating elements */}
-            <div className="absolute inset-0 pointer-events-none">
-              {[...Array(20)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-1 h-1 bg-[#00FFD1]/20 rounded-full"
-                  style={{
-                    top: `${Math.random() * 100}%`,
-                    left: `${Math.random() * 100}%`,
-                  }}
-                  animate={{
-                    y: [0, -20, 0],
-                    opacity: [0.2, 0.5, 0.2],
-                  }}
-                  transition={{
-                    duration: 2 + Math.random() * 2,
-                    repeat: Infinity,
-                    delay: Math.random() * 2,
-                  }}
-                />
               ))}
             </div>
           </div>
