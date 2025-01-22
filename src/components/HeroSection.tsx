@@ -57,10 +57,95 @@ const facts = [
   "Let's push the boundaries of what's possible in digital creation"
 ]
 
+const mentholMessages = [
+  "System.init() -> AI companion online!",
+  "while(true) { create_amazing_art(); }",
+  "Your creativity + my AI = unlimited power!",
+  "Initializing character design protocols!",
+  "sudo apt-get install consciousness!",
+  "Running NFT.evolve() on your creations!",
+  "Quantum processors = infinite possibilities!",
+  "if(nft.isStatic) { make_it_alive(); }",
+  "Neural networks activated and ready!",
+  "Executing personality.spawn(unique)!",
+  "return new DigitalLife(yourIdeas);",
+  "await nft.gainConsciousness();"
+];
+
+const ChatBubble = ({ text, isComplete }: { text: string; isComplete: boolean }) => (
+  <motion.div 
+    initial={{ opacity: 0, x: -10 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.3 }}
+    className="absolute left-[130px] top-[15%] -translate-y-1/2 bg-black/80 
+               text-[#00FFD1] text-sm px-4 py-3 rounded-lg border border-[#00FFD1]/20 
+               backdrop-blur-sm min-w-[200px] whitespace-nowrap
+               shadow-[0_0_15px_rgba(255,255,255,0.15)]
+               before:absolute before:inset-0 before:-z-10 
+               before:rounded-lg before:bg-white/5 before:blur-xl"
+  >
+    {/* Text container */}
+    <div className="relative z-10">
+      <span className="font-mono tracking-normal">
+        {text}
+        {!isComplete && (
+          <motion.span
+            animate={{ opacity: [0, 1] }}
+            transition={{ duration: 0.5, repeat: Infinity }}
+            className="inline-block ml-1 w-1 h-4 bg-[#00FFD1]"
+          />
+        )}
+      </span>
+    </div>
+
+    {/* Chat bubble triangle with glow */}
+    <div className="absolute left-0 top-[30%] -translate-x-2">
+      <div className="absolute w-0 h-0 
+                    border-t-[8px] border-t-transparent 
+                    border-r-[8px] border-r-[#00FFD1]/20
+                    border-b-[8px] border-b-transparent
+                    shadow-[0_0_10px_rgba(255,255,255,0.1)]"
+      />
+      <div className="absolute w-0 h-0 ml-[1px]
+                    border-t-[7px] border-t-transparent 
+                    border-r-[7px] border-r-black/80
+                    border-b-[7px] border-b-transparent"
+      />
+    </div>
+  </motion.div>
+);
+
+const useTypingEffect = (text: string, speed: number = 50) => {
+  const [displayedText, setDisplayedText] = useState('');
+  const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    setDisplayedText('');
+    setIsComplete(false);
+    let i = 0;
+    const timer = setInterval(() => {
+      if (i < text.length) {
+        setDisplayedText(text.slice(0, i + 1));
+        i++;
+      } else {
+        setIsComplete(true);
+        clearInterval(timer);
+      }
+    }, speed);
+
+    return () => clearInterval(timer);
+  }, [text, speed]);
+
+  return { displayedText, isComplete };
+};
+
 export function HeroSection() {
   const [mounted, setMounted] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [dimensions, setDimensions] = useState({ width: '100%', height: '100%' })
+  const [messageIndex, setMessageIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(false);
+  const { displayedText, isComplete } = useTypingEffect(mentholMessages[messageIndex], 50);
 
   const typedText = useTypewriter(facts, 40, 3000)
 
@@ -90,6 +175,13 @@ export function HeroSection() {
 
     return () => clearInterval(interval)
   }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMessageIndex((prev) => (prev + 1) % mentholMessages.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, []);
 
   if (!mounted) {
     return null // or a loading placeholder
@@ -187,11 +279,6 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Add LiveMintFeed back on the left side */}
-      <div className="fixed left-0 top-0 h-full z-50">
-        <LiveMintFeed />
-      </div>
-
       {/* Main content with mascot and chat bubble */}
       <motion.div 
         className="text-center space-y-8 max-w-4xl mx-auto relative z-50 mt-[80px] md:mt-[100px]"
@@ -245,15 +332,16 @@ export function HeroSection() {
           {/* Mascot and chat bubble */}
           <div className="relative">
             <Image
-              src="/mascot.png"
+              src="/menthol-avatar.png"
               alt="Menthol Mascot"
-              width={72}
-              height={72}
+              width={144}
+              height={144}
               className="animate-float"
+              style={{ 
+                filter: 'drop-shadow(0 0 10px rgba(0, 255, 209, 0.3))'
+              }}
             />
-            <div className="absolute -right-4 -top-4 bg-black/80 text-white text-sm px-3 py-1 rounded-lg">
-              Let's create!
-            </div>
+            <ChatBubble text={displayedText} isComplete={isComplete} />
           </div>
         </div>
 
@@ -440,11 +528,6 @@ export function HeroSection() {
           strokeWidth={1.5}
         />
       </motion.div>
-
-      {/* Keep only ONE instance of EnhancedStatsBar here */}
-      <div className="absolute top-[120px] md:top-[140px] left-1/2 -translate-x-1/2 w-full z-10">
-        <EnhancedStatsBar />
-      </div>
     </div>
   )
 } 

@@ -59,7 +59,7 @@ export function LiveMintFeed() {
       
       setMints(prev => [newMint, ...prev].slice(0, 10))
       setLastMintTime(Date.now())
-    }, 2000)
+    }, 800) // Better balance of speed and readability
 
     return () => clearInterval(interval)
   }, [mounted])
@@ -67,13 +67,20 @@ export function LiveMintFeed() {
   // Don't render anything until mounted
   if (!mounted) return null
 
-  const toggleFeed = (e: React.MouseEvent) => {
-    e.stopPropagation()
+  const toggleFeed = () => {
     setIsOpen(!isOpen)
   }
 
   return (
     <>
+      {/* Overlay for closing when clicking outside */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-40"
+          onClick={toggleFeed}
+        />
+      )}
+
       {/* Feed panel */}
       <motion.div
         className="fixed left-0 top-0 h-full w-[85vw] sm:w-[280px] md:w-[320px] bg-black/95 border-r border-[#00FFD1]/20 
@@ -88,16 +95,17 @@ export function LiveMintFeed() {
           }
         }}
       >
-        {/* Overlay for closing when clicking outside */}
-        {isOpen && (
-          <div 
-            className="fixed inset-0 z-40 bg-transparent"
-            onClick={toggleFeed}
-          />
-        )}
-        
-        <div className="relative h-full z-50" onClick={(e) => e.stopPropagation()}>
-          <div className="h-20 bg-black border-b border-[#00FFD1]/10" />
+        <div className="relative h-full" onClick={(e) => e.stopPropagation()}>
+          {/* Header with close button */}
+          <div className="h-20 bg-black border-b border-[#00FFD1]/10 flex items-center justify-between px-4">
+            <span className="text-[#00FFD1] font-medium">Live Mints</span>
+            <button 
+              onClick={toggleFeed}
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              <X size={20} />
+            </button>
+          </div>
           
           <div className="overflow-y-auto h-[calc(100vh-80px)] pt-3 px-2 sm:px-4 pb-4 space-y-3 sm:space-y-4">
             <AnimatePresence mode="popLayout">
@@ -108,6 +116,7 @@ export function LiveMintFeed() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.2 }} // Smoother animation
                   className="bg-black/50 rounded-lg p-2 border border-[#00FFD1]/10"
                 >
                   <div className="relative aspect-square w-full mb-2 rounded-md overflow-hidden">
