@@ -98,16 +98,10 @@ export function LiveMintFeed() {
         <div className="relative h-full" onClick={(e) => e.stopPropagation()}>
           {/* Header with close button */}
           <div className="h-20 bg-black border-b border-[#00FFD1]/10 flex items-center justify-between px-4">
-            <span className="text-[#00FFD1] font-medium">Live Mints</span>
-            <button 
-              onClick={toggleFeed}
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <X size={20} />
-            </button>
+            <span className="text-[#00FFD1] font-medium"></span>
           </div>
           
-          <div className="overflow-y-auto h-[calc(100vh-80px)] pt-3 px-2 sm:px-4 pb-4 space-y-3 sm:space-y-4">
+          <div className="overflow-y-auto h-[calc(100vh-80px)] pt-8 px-2 sm:px-4 pb-4 space-y-4">
             <AnimatePresence mode="popLayout">
               {mints.map((mint) => (
                 <motion.div
